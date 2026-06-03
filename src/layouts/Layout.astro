@@ -1,12 +1,18 @@
 ---
 import { Font } from "astro:assets";
-import "../styles/global.css";
+import "@/styles/global.css";
 
 interface Props {
   title?: string;
+  description?: string;
 }
 
-const { title = "Juan Fernández Ceacero - Ingeniero Informático" } = Astro.props;
+const {
+  title = "Juan Fernández Ceacero — Ingeniero Informático | Desarrollo Web",
+  description = "Ingeniero informático recién graduado especializado en desarrollo web full stack. Experiencia en Laravel, PHP, Spring Boot, Astro y Tailwind CSS. Disponible para oportunidades profesionales.",
+} = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 ---
 
 <!doctype html>
@@ -16,10 +22,66 @@ const { title = "Juan Fernández Ceacero - Ingeniero Informático" } = Astro.pro
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
+    <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
+    <meta name="description" content={description} />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="Juan Fernández Ceacero" />
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={`${Astro.site}og-image.png`} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="es_ES" />
+    <meta property="og:site_name" content="Juan Fernández Ceacero" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={`${Astro.site}og-image.png`} />
+
     <Font cssVariable="--font-jetbrains-mono" preload />
-    <Font cssVariable="--font-material-symbols" />
     <title>{title}</title>
+
+    <!-- Structured Data (JSON-LD) -->
+    <script is:inline type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Juan Fernández Ceacero",
+        "url": "https://juanfdez.dev",
+        "jobTitle": "Ingeniero Informático",
+        "description": "Ingeniero informático recién graduado especializado en desarrollo web full stack.",
+        "email": "juanf.ceacero@gmail.com",
+        "telephone": "+34622384951",
+        "knowsAbout": [
+          "PHP",
+          "Laravel",
+          "JavaScript",
+          "TypeScript",
+          "Java",
+          "Spring Boot",
+          "Astro",
+          "Tailwind CSS",
+          "PostgreSQL",
+          "MySQL"
+        ],
+        "alumniOf": {
+          "@type": "CollegeOrUniversity",
+          "name": "Universidad de Jaén"
+        },
+        "sameAs": [
+          "https://linkedin.com/in/juanfdez",
+          "https://github.com/juanfdez"
+        ],
+        "image": `${Astro.site}retrato_mio.png`
+      }
+    </script>
   </head>
   <body class="bg-surface text-on-surface antialiased selection:bg-primary selection:text-on-primary">
     <slot />
