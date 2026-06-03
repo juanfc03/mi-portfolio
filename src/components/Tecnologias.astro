@@ -1,0 +1,47 @@
+---
+interface CategoriaTecnologia {
+  nombre: string;
+  tecnologias: string[];
+}
+
+const categorias: CategoriaTecnologia[] = [
+  {
+    nombre: "Lenguajes",
+    tecnologias: ["PHP", "Java", "JavaScript / TypeScript"],
+  },
+  {
+    nombre: "Backend",
+    tecnologias: ["Laravel", "Livewire", "Spring Boot", "PostgreSQL", "MySQL"],
+  },
+  {
+    nombre: "Frontend",
+    tecnologias: ["Astro", "Tailwind CSS", "Livewire"],
+  },
+  {
+    nombre: "Herramientas",
+    tecnologias: ["Git", "Agentes de IA"],
+  },
+];
+---
+
+<section class="py-24 md:py-32 px-margin-mobile md:px-margin-desktop border-t border-outline-variant bg-surface-bright" id="tecnologias">
+  <div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-gutter">
+    <div class="md:col-span-4">
+      <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary sticky top-32">04. Tecnologías</h2>
+    </div>
+    <div class="md:col-span-8">
+      <div class="grid grid-cols-2 sm:grid-cols-3 gap-y-12 gap-x-8">
+        {categorias.map((categoria) => (
+          <div>
+            <h4 class="font-label-md text-label-md uppercase text-outline mb-4">{categoria.nombre}</h4>
+            <ul class="space-y-2 font-body-lg text-body-lg text-primary">
+              {categoria.tecnologias.map((tech) => (
+                <li>{tech}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>

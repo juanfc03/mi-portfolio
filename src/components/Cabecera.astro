@@ -1,0 +1,51 @@
+<nav class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-sm border-b border-outline-variant transition-all duration-300 ease-in-out">
+  <div class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+    <div class="hidden md:flex items-center gap-8">
+      <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#sobre-mi">Sobre mí</a>
+      <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#experiencia">Experiencia</a>
+      <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#proyectos">Proyectos</a>
+      <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#tecnologias">Tecnologías</a>
+    </div>
+    <a class="hidden md:inline-flex font-label-md text-label-md uppercase bg-primary text-on-primary px-6 py-3 hover:bg-surface hover:text-primary border border-primary transition-colors" href="#contacto">Contáctame</a>
+    <!-- Mobile Menu Button -->
+    <button aria-label="Menu" class="md:hidden text-primary" id="menu-toggle">
+      <span class="material-symbols-outlined" id="menu-icon">menu</span>
+    </button>
+  </div>
+  <!-- Mobile Menu -->
+  <div class="md:hidden overflow-hidden max-h-0 transition-all duration-300 ease-in-out" id="mobile-menu">
+    <div class="px-margin-mobile pb-6 flex flex-col gap-4">
+      <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors py-2 border-b border-outline-variant" href="#sobre-mi">Sobre mí</a>
+      <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors py-2 border-b border-outline-variant" href="#experiencia">Experiencia</a>
+      <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors py-2 border-b border-outline-variant" href="#proyectos">Proyectos</a>
+      <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors py-2 border-b border-outline-variant" href="#tecnologias">Tecnologías</a>
+      <a class="font-label-md text-label-md uppercase bg-primary text-on-primary px-6 py-3 text-center hover:bg-surface hover:text-primary border border-primary transition-colors mt-2" href="#contacto">Contáctame</a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const icon = document.getElementById('menu-icon');
+  let isOpen = false;
+
+  toggle?.addEventListener('click', () => {
+    isOpen = !isOpen;
+    if (isOpen) {
+      menu!.style.maxHeight = menu!.scrollHeight + 'px';
+      icon!.textContent = 'close';
+    } else {
+      menu!.style.maxHeight = '0';
+      icon!.textContent = 'menu';
+    }
+  });
+
+  menu?.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', () => {
+      isOpen = false;
+      menu!.style.maxHeight = '0';
+      icon!.textContent = 'menu';
+    });
+  });
+</script>
