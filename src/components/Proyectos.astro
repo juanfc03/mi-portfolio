@@ -1,5 +1,5 @@
 ---
-import { Picture } from "astro:assets";
+import { Image } from "astro:assets";
 import proyectoTfg from "../assets/proyecto-tfg.png";
 import proyectoRosa from "../assets/proyecto-rosa.png";
 
@@ -58,7 +58,7 @@ const proyectos: Proyecto[] = [
               class={`lg:col-span-7 order-2 ${proyecto.imagenIzquierda ? "lg:order-1" : "lg:order-2"}`}
             >
               <div class="aspect-video bg-surface-variant border border-outline-variant w-full relative overflow-hidden group">
-                <Picture
+                <Image
                   src={proyecto.imagen}
                   alt={proyecto.imagenAlt}
                   class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
@@ -90,12 +90,14 @@ const proyectos: Proyecto[] = [
                 <a
                   class="font-label-md text-label-md uppercase text-primary border-b border-primary pb-1 hover:opacity-70 transition-opacity"
                   href={proyecto.demoUrl}
+                  aria-label={`Ver demo de ${proyecto.titulo}`}
                 >
                   Ver demo
                 </a>
                 <a
                   class="font-label-md text-label-md uppercase text-on-surface-variant border-b border-on-surface-variant pb-1 hover:text-primary hover:border-primary transition-all"
                   href={proyecto.repositorioUrl}
+                  aria-label={`Ver repositorio de ${proyecto.titulo}`}
                 >
                   Repositorio
                 </a>
