@@ -25,15 +25,15 @@ const categorias: CategoriaTecnologia[] = [
 ---
 
 <section
-  class="py-24 md:py-32 px-margin-mobile md:px-margin-desktop border-t border-outline-variant bg-surface-bright"
+  class="py-section-y-xs sm:py-section-y-sm md:py-section-y-md lg:py-section-y-lg xl:py-section-y-xl px-margin-xs sm:px-margin-sm md:px-margin-md lg:px-margin-lg xl:px-margin-xl border-t border-outline-variant bg-surface-bright"
   id="tecnologias"
 >
   <div
-    class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-gutter"
+    class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter-xs sm:gap-gutter-sm md:gap-gutter-md lg:gap-gutter-lg xl:gap-gutter-xl"
   >
     <div class="md:col-span-4">
       <h2
-        class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary sticky top-32"
+        class="font-headline-lg text-headline-xs sm:text-headline-sm md:text-headline-md text-primary sticky top-32"
       >
         04. Tecnologías
       </h2>
@@ -43,10 +43,10 @@ const categorias: CategoriaTecnologia[] = [
         {
           categorias.map(categoria => (
             <div>
-              <h3 class="font-label-md text-label-md uppercase text-on-surface-variant mb-4">
+              <h3 class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase text-on-surface-variant mb-4">
                 {categoria.nombre}
               </h3>
-              <ul class="space-y-2 font-body-lg text-body-lg text-primary">
+              <ul class="space-y-2 font-body-large text-body-large-xs sm:text-body-large-sm md:text-body-large-md lg:text-body-large-lg xl:text-body-large-xl text-primary">
                 {categoria.tecnologias.map(tech => (
                   <li>{tech}</li>
                 ))}

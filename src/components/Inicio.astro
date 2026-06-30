@@ -4,30 +4,30 @@ import retratoMio from '../assets/retrato-mio.png';
 ---
 
 <section
-  class="min-h-[calc(100vh-80px)] flex flex-col md:flex-row items-center justify-between px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto gap-12 py-20"
+  class="min-h-[calc(100vh-80px)] flex flex-col md:flex-row items-center justify-between px-margin-xs sm:px-margin-sm md:px-margin-md lg:px-margin-lg xl:px-margin-xl max-w-container-max mx-auto gap-12 py-section-y-xs sm:py-section-y-sm md:py-section-y-md lg:py-section-y-lg xl:py-section-y-xl"
 >
   <div class="flex-1 space-y-8">
     <div>
-      <h1 class="font-display-lg text-display-lg text-primary mb-4">
+      <h1 class="font-display-lg text-display-xs sm:text-display-sm md:text-display-md text-primary mb-4">
         Juan Fernández Ceacero
       </h1>
       <p
-        class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-surface-variant"
+        class="font-body-large text-body-large-xs sm:text-body-large-sm md:text-body-large-md text-on-surface-variant"
       >
         Ingeniero informático
       </p>
     </div>
-    <p class="font-body-lg text-body-lg text-on-surface-variant max-w-xl">
+    <p class="font-body-large text-body-large-xs sm:text-body-large-sm md:text-body-large-md lg:text-body-large-lg xl:text-body-large-xl text-on-surface-variant max-w-xl">
       Ingeniero informático recién graduado. Construyo aplicaciones web modernas
       con foco en la calidad del código.
     </p>
     <div class="flex flex-wrap gap-4 pt-4">
       <a
-        class="font-label-md text-label-md uppercase bg-primary text-on-primary px-8 py-4 border border-primary hover:bg-surface hover:text-primary transition-colors"
+        class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase bg-primary text-on-primary px-8 py-4 border border-primary hover:bg-surface hover:text-primary transition-colors"
         href="#proyectos">Ver proyectos</a
       >
       <a
-        class="font-label-md text-label-md uppercase bg-transparent text-primary px-8 py-4 border border-primary hover:bg-primary hover:text-on-primary transition-colors"
+        class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase bg-transparent text-primary px-8 py-4 border border-primary hover:bg-primary hover:text-on-primary transition-colors"
         href="#contacto">Contactar</a
       >
     </div>
@@ -39,13 +39,11 @@ import retratoMio from '../assets/retrato-mio.png';
       <Image
         src={retratoMio}
         alt="Retrato de Juan Fernández Ceacero, ingeniero informático"
-        class="w-full h-full object-cover grayscale mix-blend-multiply"
+        class="size-full object-cover grayscale mix-blend-multiply"
         loading="eager"
         fetchpriority="high"
         format="webp"
         quality={75}
-        widths={[400, 700]}
-        sizes="(max-width: 768px) 400px, 700px"
       />
     </div>
   </div>

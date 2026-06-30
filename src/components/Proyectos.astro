@@ -53,12 +53,12 @@ const proyectos: Proyecto[] = [
 ---
 
 <section
-  class="py-24 md:py-32 px-margin-mobile md:px-margin-desktop border-t border-outline-variant"
+  class="py-section-y-xs sm:py-section-y-sm md:py-section-y-md lg:py-section-y-lg xl:py-section-y-xl px-margin-xs sm:px-margin-sm md:px-margin-md lg:px-margin-lg xl:px-margin-xl border-t border-outline-variant"
   id="proyectos"
 >
   <div class="max-w-container-max mx-auto">
     <h2
-      class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary mb-16 md:mb-24"
+      class="font-headline-lg text-headline-xs sm:text-headline-sm md:text-headline-md text-primary mb-16 md:mb-24"
     >
       03. Proyectos
     </h2>
@@ -73,41 +73,39 @@ const proyectos: Proyecto[] = [
                 <Image
                   src={proyecto.imagen}
                   alt={proyecto.imagenAlt}
-                  class="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
+                  class="size-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
                   loading="lazy"
                   format="webp"
                   quality={75}
-                  widths={[400, 800]}
-                  sizes="(max-width: 768px) 400px, 800px"
                 />
               </div>
             </div>
             <div
               class={`lg:col-span-5 space-y-6 order-1 ${proyecto.imagenIzquierda ? 'lg:order-2' : 'lg:order-1'}`}
             >
-              <h3 class="font-display-lg text-headline-lg-mobile md:text-display-lg text-primary">
+              <h3 class="font-headline-lg text-headline-xs sm:text-headline-sm md:text-headline-md text-primary">
                 {proyecto.titulo}
               </h3>
-              <p class="font-body-lg text-body-lg text-on-surface-variant">
+              <p class="font-body-large text-body-large-xs sm:text-body-large-sm md:text-body-large-md lg:text-body-large-lg xl:text-body-large-xl text-on-surface-variant">
                 {proyecto.descripcion}
               </p>
               <div class="flex flex-wrap gap-2 pt-2">
                 {proyecto.herramientas.map(herramienta => (
-                  <span class="font-label-md text-label-md uppercase border border-outline-variant px-3 py-1">
+                  <span class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase border border-outline-variant px-3 py-1">
                     {herramienta}
                   </span>
                 ))}
               </div>
               <div class="flex gap-6 pt-6">
                 <a
-                  class="font-label-md text-label-md uppercase text-primary border-b border-primary pb-1 hover:opacity-70 transition-opacity"
+                  class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase text-primary border-b border-primary pb-1 hover:opacity-70 transition-opacity"
                   href={proyecto.demoUrl}
                   aria-label={`Ver demo de ${proyecto.titulo}`}
                 >
                   Ver demo
                 </a>
                 <a
-                  class="font-label-md text-label-md uppercase text-on-surface-variant border-b border-on-surface-variant pb-1 hover:text-primary hover:border-primary transition-all"
+                  class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase text-on-surface-variant border-b border-on-surface-variant pb-1 hover:text-primary hover:border-primary transition-all"
                   href={proyecto.repositorioUrl}
                   aria-label={`Ver repositorio de ${proyecto.titulo}`}
                 >
