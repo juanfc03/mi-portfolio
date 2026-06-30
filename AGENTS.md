@@ -8,60 +8,70 @@
 
 ## Commands
 
-| Command | Purpose |
-|---|---|
-| `npm run dev` | Dev server at `localhost:4321` |
-| `npm run build` | Production build to `dist/` |
-| `npm run preview` | Preview production build |
-| `npm run check` | Type checking with Astro |
+| Command           | Purpose                        |
+| ----------------- | ------------------------------ |
+| `npm run dev`     | Dev server at `localhost:4321` |
+| `npm run build`   | Production build to `dist/`    |
+| `npm run preview` | Preview production build       |
+| `npm run check`   | Type checking with Astro       |
+
+No test framework, no CI/CD (no `.github/`).
+
+## Config quirks
+
+- `trailingSlash: 'always'` in `astro.config.mjs`
+- `build.inlineStylesheets: 'always'` — all CSS inlined
+- `@astrojs/sitemap` integration enabled
+- Path alias `@/` → `src/` (configured in both `astro.config.mjs` and `tsconfig.json`)
+- **No `tailwind.config.*`** — Tailwind 4 is config-file-free. All design tokens in `src/styles/global.css` via `@theme inline`.
 
 ## Structure
 
-- `src/pages/` — file-based routing (Astro convention)
-- `src/layouts/` — layout wrappers (import global CSS here)
-- `src/components/` — reusable Astro components (nombres en español)
-- `src/styles/global.css` — Tailwind entrypoint with `@theme inline` for all design tokens
-- `public/` — static assets served as-is
+- `src/pages/index.astro` — the only page (single-page app with smooth-scroll anchors)
+- `src/layouts/Layout.astro` — wraps all content; imports `global.css` and injects `<Font>`
+- `src/components/` — components named in **Spanish** (Cabecera, Inicio, SobreMi, Experiencia, Proyectos, Tecnologias, Contacto, PiePagina)
+- `src/styles/global.css` — `@theme inline` with colors, spacing, typography, and `@utility no-scrollbar`
+- `src/assets/` — images processed by `astro:assets` (retrato-mio.png, proyecto-tfg.png, proyecto-rosa.png)
+- `public/` — favicon.svg, favicon.ico, robots.txt (served as-is)
 - `.astro/` — generated types (gitignored)
 - `dist/` — build output (gitignored)
 
-## Fonts (Astro 6 Fonts API)
-
-Fonts are configured via `fontProviders` in `astro.config.mjs` — **not** Google Fonts CDN links. Astro downloads, caches, and serves fonts locally for better performance and privacy.
-
-- `fontProviders.fontsource()` — for JetBrains Mono (downloads from Fontsource CDN)
-- `<Font cssVariable="--font-jetbrains-mono" preload />` in `Layout.astro` head injects the font
-- Register in Tailwind 4 via `@theme inline { --font-sans: var(--font-jetbrains-mono), monospace; }` in `global.css`
-
-**Icons:** Material Symbols was removed (3.8MB). Icons are now **inline SVGs** (menu, close, download) — Feather icons style.
-
 ## Design System (Mono Archive)
 
-All design tokens are in `src/styles/global.css` inside `@theme inline`:
-- Colors: `--color-primary`, `--color-surface-*`, `--color-outline-*`, etc.
-- Spacing: `--spacing-margin-mobile` (20px), `--spacing-margin-desktop` (64px), `--spacing-container-max` (1200px), `--spacing-gutter` (24px)
-- Font sizes: `--text-display-lg` (48px), `--text-headline-lg` (32px), `--text-body-lg` (18px), `--text-label-md` (12px)
-- Font families: `--font-display-lg`, `--font-headline-lg`, `--font-body-lg`, etc. — all map to `--font-jetbrains-mono`
+All tokens in `src/styles/global.css` inside `@theme inline`:
 
-## Component Architecture
+- `--color-primary` (#000000), `--color-surface-*` (off-white scale), `--color-secondary` (muted emerald), `--color-outline-*`
+- `--spacing-margin-mobile: 20px`, `--spacing-margin-desktop: 64px`, `--spacing-container-max: 1200px`, `--spacing-gutter: 24px`
+- `--text-display-lg: 48px`, `--text-headline-lg: 32px`, `--text-body-lg: 18px`, `--text-label-md: 12px`
+- All font families map to `--font-jetbrains-mono`
+- Custom `@utility no-scrollbar` available
+- `[id] { scroll-margin-top: 80px }` for fixed header offset
+- `prefers-reduced-motion` respected globally
 
-- Components use **TypeScript interfaces** in frontmatter for data typing
-- Data arrays (experiencias, proyectos, tecnologías) are defined in frontmatter and iterated with `.map()`
-- Images use `<Image>` or `<Picture>` from `astro:assets` with responsive `widths` and `sizes`
+## Fonts (Astro 6 Fonts API)
+
+Configured via `fontProviders.fontsource()` in `astro.config.mjs` — **not** Google Fonts CDN. Astro downloads and serves locally.
+
+- `<Font cssVariable="--font-jetbrains-mono" preload />` in `Layout.astro` head
+- Weights: 400, 500, 700; subsets: latin; fallback: monospace
+- Icons are **inline SVGs** (menu, close, download) — Material Symbols removed to save 3.8MB
+
+## Component conventions
+
+- Data arrays typed with `interface` in frontmatter, iterated with `.map()`
+- Images use `<Image>` from `astro:assets` with explicit `widths`/`sizes`/`format="webp"`/`quality={75}`
 - Hero portrait: `fetchpriority="high"`, `widths={[400, 700]}`, `sizes="(max-width: 768px) 400px, 700px"`
-- Project images: `widths={[400, 800]}`, `sizes="(max-width: 768px) 400px, 800px"`
+- Project images: `loading="lazy"`, `widths={[400, 800]}`, `sizes="(max-width: 768px) 400px, 800px"`
 
-## Contact Form (Netlify)
+## Contact form (Netlify)
 
-- Form uses `data-netlify="true"` and `netlify-honeypot="bot-field"` for spam protection
+- `data-netlify="true"` + `netlify-honeypot="bot-field"` for spam protection
 - Hidden inputs: `form-name` and `bot-field` (honeypot)
-- All inputs need `name` attributes for Netlify to capture them
-- Toast notification for success/error feedback
+- All inputs need `name` attributes for Netlify capture
+- Client-side JS in `Contacto.astro` handles fetch POST + toast notification (success/error)
+- Form action POSTs to `/` (Netlify auto-detects by `form-name`)
 
-## Conventions
+## Navigation
 
-- Tailwind 4 uses the `@tailwindcss/vite` plugin, not PostCSS. Do not add `tailwind.config.*` — Tailwind 4 is config-file-free.
-- Global styles go in `src/styles/global.css`; component-scoped styles use Astro `<style>` blocks.
-- All pages must import and wrap content with `Layout.astro`.
-- Component filenames and data are in **Spanish** (Cabecera, Inicio, SobreMi, Experiencia, Proyectos, Tecnologias, Contacto, PiePagina).
-- Navigation is one-page with smooth scroll and anchor links (`#sobre-mi`, `#experiencia`, `#proyectos`, `#tecnologias`, `#contacto`).
+- One-page: anchors `#sobre-mi`, `#experiencia`, `#proyectos`, `#tecnologias`, `#contacto`
+- Fixed header with backdrop blur; mobile hamburger toggle with `max-height` animation
