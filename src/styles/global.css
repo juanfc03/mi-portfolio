@@ -6,10 +6,9 @@
   --font-mono: var(--font-jetbrains-mono), monospace;
   --font-display-lg: var(--font-jetbrains-mono), monospace;
   --font-headline-lg: var(--font-jetbrains-mono), monospace;
-  --font-headline-lg-mobile: var(--font-jetbrains-mono), monospace;
-  --font-body-lg: var(--font-jetbrains-mono), monospace;
-  --font-body-md: var(--font-jetbrains-mono), monospace;
-  --font-label-md: var(--font-jetbrains-mono), monospace;
+  --font-body-large: var(--font-jetbrains-mono), monospace;
+  --font-body-base: var(--font-jetbrains-mono), monospace;
+  --font-label-base: var(--font-jetbrains-mono), monospace;
   --font-caption: var(--font-jetbrains-mono), monospace;
 
   /* Colors - Mono Archive palette */
@@ -69,20 +68,57 @@
   --color-inverse-primary: #c9c6c5;
 
   /* Spacing */
-  --spacing-gutter: 24px;
-  --spacing-margin-mobile: 20px;
-  --spacing-margin-desktop: 64px;
+  --spacing-gutter-xs: 20px;
+  --spacing-gutter-sm: 22px;
+  --spacing-gutter-md: 24px;
+  --spacing-gutter-lg: 28px;
+  --spacing-gutter-xl: 32px;
+
+  --spacing-margin-xs: 20px;
+  --spacing-margin-sm: 32px;
+  --spacing-margin-md: 48px;
+  --spacing-margin-lg: 56px;
+  --spacing-margin-xl: 64px;
+
+  --spacing-section-y-xs: 64px;
+  --spacing-section-y-sm: 80px;
+  --spacing-section-y-md: 96px;
+  --spacing-section-y-lg: 112px;
+  --spacing-section-y-xl: 128px;
+
   --spacing-container-max: 1200px;
   --spacing-unit: 4px;
 
-  /* Font sizes */
-  --text-display-lg: 48px;
-  --text-headline-lg: 32px;
-  --text-headline-lg-mobile: 24px;
-  --text-body-lg: 18px;
-  --text-body-md: 15px;
-  --text-label-md: 12px;
-  --text-caption: 11px;
+  /* Font sizes - Mono Archive type scale (5 steps per role) */
+  --text-display-xs: 36px;
+  --text-display-sm: 42px;
+  --text-display-md: 48px;
+  --text-display-lg: 56px;
+  --text-display-xl: 64px;
+
+  --text-headline-xs: 24px;
+  --text-headline-sm: 28px;
+  --text-headline-md: 32px;
+  --text-headline-lg: 38px;
+  --text-headline-xl: 44px;
+
+  --text-body-large-xs: 16px;
+  --text-body-large-sm: 17px;
+  --text-body-large-md: 18px;
+  --text-body-large-lg: 19px;
+  --text-body-large-xl: 20px;
+
+  --text-body-base-xs: 14px;
+  --text-body-base-md: 15px;
+  --text-body-base-lg: 16px;
+
+  --text-label-base-xs: 11px;
+  --text-label-base-md: 12px;
+  --text-label-base-lg: 13px;
+
+  --text-caption-xs: 10px;
+  --text-caption-md: 11px;
+  --text-caption-lg: 12px;
 }
 
 /* Custom utilities */
