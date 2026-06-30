@@ -99,6 +99,26 @@ spacing:
   margin-mobile: 20px
 ---
 
+## Code mapping (Tailwind 4 @theme inline)
+
+The implementation in `src/styles/global.css` uses a 5-step scale per role (`xs` / `sm` / `md` / `lg` / `xl`). The names above are design references; the table below shows the closest token currently emitted in `@theme inline`:
+
+| Design reference | Code token (used) | Size |
+| --- | --- | --- |
+| `headline-lg-mobile` (24px) | `--text-headline-xs` | 24px |
+| `headline-lg` (32px) | `--text-headline-md` | 32px |
+| `display-lg` (48px) | `--text-display-md` | 48px |
+| `body-md` (15px) | `--text-body-base-md` | 15px |
+| `body-lg` (18px) | `--text-body-large-md` | 18px |
+| `label-md` (12px) | `--text-label-base-md` | 12px |
+| `caption` (11px) | `--text-caption-md` | 11px |
+| `container-max` (1200px) | `--spacing-container-max` | 1200px |
+| `gutter` (24px) | `--spacing-gutter-md` | 24px |
+| `margin-desktop` (64px) | `--spacing-margin-xl` | 64px |
+| `margin-mobile` (20px) | `--spacing-margin-xs` | 20px |
+
+> `DESIGN.md` remains the **authoritative palette** (full list of colors defined in the frontmatter). The `@theme inline` block in `global.css` only emits the tokens actually used by the components — adding a new color usage is a two-step change: pick the value from `DESIGN.md`, add the `--color-*` token to `@theme inline`.
+
 ## Brand & Style
 
 The design system is a minimalist editorial framework designed for high-end personal portfolios and digital archives. It evokes a sense of quiet authority, intellectual rigor, and precision. By treating digital space with the same reverence as a physical gallery or a premium printed journal, the UI remains unobtrusive, allowing the work and narrative to take center stage.
