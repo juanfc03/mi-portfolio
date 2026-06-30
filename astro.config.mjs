@@ -6,7 +6,7 @@ import sitemap from '@astrojs/sitemap';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://juanfdez.dev', // TODO: definir dominio final
+  site: 'https://juanfc03.netlify.app',
   trailingSlash: 'always',
   build: {
     inlineStylesheets: 'always',
