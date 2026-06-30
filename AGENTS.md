@@ -2,76 +2,72 @@
 
 ## Stack
 
-- Astro 6 + Tailwind CSS 4 (via `@tailwindcss/vite` plugin)
-- TypeScript with strict config (`astro/tsconfigs/strict`)
-- Node >= 22.12.0 required
+- Astro 7 + Tailwind CSS 4 (via `@tailwindcss/vite` plugin)
+- TypeScript strict (`astro/tsconfigs/strict`)
+- Node >= 22.12.0 (`engines` enforced)
+
+Note: `package.json` pins `astro: ^7.0.4` and `typescript: ^6.0.3` — README still says "Astro 6", trust the manifest.
 
 ## Commands
 
-| Command           | Purpose                        |
-| ----------------- | ------------------------------ |
-| `npm run dev`     | Dev server at `localhost:4321` |
-| `npm run build`   | Production build to `dist/`    |
-| `npm run preview` | Preview production build       |
-| `npm run check`   | Type checking with Astro       |
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Dev server at `localhost:4321` |
+| `npm run build` | Production build to `dist/` |
+| `npm run preview` | Preview production build |
+| `npm run check` | Astro type checking (`astro check`) |
 
-No test framework, no CI/CD (no `.github/`).
+No test framework. No CI. `.prettierrc` exists (`singleQuote`, `arrowParens: "avoid"`) but no `format`/`lint` script — run Prettier via editor or CLI manually. `super-commit` is an OpenCode command (see below), not a npm script.
 
-## Config quirks
+## Config quirks (`astro.config.mjs`)
 
-- `trailingSlash: 'always'` in `astro.config.mjs`
-- `build.inlineStylesheets: 'always'` — all CSS inlined
-- `@astrojs/sitemap` integration enabled
-- Path alias `@/` → `src/` (configured in both `astro.config.mjs` and `tsconfig.json`)
-- **No `tailwind.config.*`** — Tailwind 4 is config-file-free. All design tokens in `src/styles/global.css` via `@theme inline`.
+- `trailingSlash: 'always'` — every URL ends with `/`.
+- `build.inlineStylesheets: 'always'` — all CSS inlined.
+- `@astrojs/sitemap` enabled; `site: 'https://juanfc03.netlify.app'`.
+- Path alias `@/` → `src/`, mirrored in `tsconfig.json` (`paths`).
+- **No `tailwind.config.*`** — Tailwind 4 is config-free. All tokens live in `src/styles/global.css` inside `@theme inline`.
+- Fonts via Astro 6/7 Fonts API (`fontProviders.fontsource()`), not a CDN. `JetBrains Mono` weights 400/500/700, served locally. `<Font cssVariable="--font-jetbrains-mono" preload />` is injected from `Layout.astro`.
 
 ## Structure
 
-- `src/pages/index.astro` — the only page (single-page app with smooth-scroll anchors)
-- `src/layouts/Layout.astro` — wraps all content; imports `global.css` and injects `<Font>`
-- `src/components/` — components named in **Spanish** (Cabecera, Inicio, SobreMi, Experiencia, Proyectos, Tecnologias, Contacto, PiePagina)
-- `src/styles/global.css` — `@theme inline` with colors, spacing, typography, and `@utility no-scrollbar`
-- `src/assets/` — images processed by `astro:assets` (retrato-mio.png, proyecto-tfg.png, proyecto-rosa.png)
-- `public/` — favicon.svg, favicon.ico, robots.txt (served as-is)
-- `.astro/` — generated types (gitignored)
-- `dist/` — build output (gitignored)
+- `src/pages/index.astro` — only route. One-page app, smooth-scroll anchors.
+- `src/layouts/Layout.astro` — `<head>`, meta/OG/Twitter/JSON-LD Person schema, default `title`/`description` props.
+- `src/components/` — Astro components named in **Spanish** (Cabecera, Inicio, SobreMi, Experiencia, Proyectos, Tecnologias, Contacto, PiePagina). Keep naming in Spanish to match the rest.
+- `src/styles/global.css` — `@theme inline` (Mono Archive tokens), `@utility no-scrollbar`, `[id] { scroll-margin-top: 80px }` for fixed-header offset, `prefers-reduced-motion` reset.
+- `src/assets/` — `retrato-mio.png`, `proyecto-tfg.png`, `proyecto-rosa.png`, `proyecto-kardia.png`. Use `<Image>` from `astro:assets`; never reference these from `/public/`.
+- `public/` — `favicon.svg`, `favicon.ico`, `robots.txt`, `CV_Juan_Fernandez_Ceacero.pdf`. Served as-is.
+- `.astro/`, `dist/` — generated, gitignored.
 
-## Design System (Mono Archive)
+## Design system (Mono Archive)
 
-All tokens in `src/styles/global.css` inside `@theme inline`:
+Authoritative source: `DESIGN.md` + `src/styles/global.css`. Style is **sharp (0px radius), monochromatic + muted emerald secondary, no shadows**. Use the registered tokens (`text-headline-lg`, `bg-surface`, `border-outline-variant`, `text-on-surface-variant`, etc.) instead of ad-hoc hex/classes. Every UI element must be sharp-cornered (DESIGN.md "Shapes"). Hover = invert fill or opacity change, never shadow.
 
-- `--color-primary` (#000000), `--color-surface-*` (off-white scale), `--color-secondary` (muted emerald), `--color-outline-*`
-- `--spacing-margin-mobile: 20px`, `--spacing-margin-desktop: 64px`, `--spacing-container-max: 1200px`, `--spacing-gutter: 24px`
-- `--text-display-lg: 48px`, `--text-headline-lg: 32px`, `--text-body-lg: 18px`, `--text-label-md: 12px`
-- All font families map to `--font-jetbrains-mono`
-- Custom `@utility no-scrollbar` available
-- `[id] { scroll-margin-top: 80px }` for fixed header offset
-- `prefers-reduced-motion` respected globally
-
-## Fonts (Astro 6 Fonts API)
-
-Configured via `fontProviders.fontsource()` in `astro.config.mjs` — **not** Google Fonts CDN. Astro downloads and serves locally.
-
-- `<Font cssVariable="--font-jetbrains-mono" preload />` in `Layout.astro` head
-- Weights: 400, 500, 700; subsets: latin; fallback: monospace
-- Icons are **inline SVGs** (menu, close, download) — Material Symbols removed to save 3.8MB
+Typography is **JetBrains Mono only** — all `--font-*` tokens map to `--font-jetbrains-mono`. Hierarchy comes from size/weight, not font swaps.
 
 ## Component conventions
 
-- Data arrays typed with `interface` in frontmatter, iterated with `.map()`
-- Images use `<Image>` from `astro:assets` with explicit `widths`/`sizes`/`format="webp"`/`quality={75}`
-- Hero portrait: `fetchpriority="high"`, `widths={[400, 700]}`, `sizes="(max-width: 768px) 400px, 700px"`
-- Project images: `loading="lazy"`, `widths={[400, 800]}`, `sizes="(max-width: 768px) 400px, 800px"`
+- Data arrays in frontmatter typed with `interface` (e.g. `Proyecto` in `Proyectos.astro:7`), iterated with `.map()`.
+- Images: `<Image>` with `format="webp"` + `quality={75}`. Hero portrait uses `fetchpriority="high"`, `widths={[400, 700]}`, `sizes="(max-width: 768px) 400px, 700px"`. Project images use `loading="lazy"`, `widths={[400, 800]}`, `sizes="(max-width: 768px) 400px, 800px"`.
+- Icons are **inline SVGs** (menu/close/toast). No icon font, no icon library — Material Symbols was removed (saved 3.8 MB).
+- Inline `<script>` blocks in components are fine for small client-side behaviour (mobile menu, contact form). Keep them co-located, no separate `.ts` files.
 
-## Contact form (Netlify)
+## Contact form (`Contacto.astro`)
 
-- `data-netlify="true"` + `netlify-honeypot="bot-field"` for spam protection
-- Hidden inputs: `form-name` and `bot-field` (honeypot)
-- All inputs need `name` attributes for Netlify capture
-- Client-side JS in `Contacto.astro` handles fetch POST + toast notification (success/error)
-- Form action POSTs to `/` (Netlify auto-detects by `form-name`)
+- Netlify Forms: `data-netlify="true"`, `netlify-honeypot="bot-field"`. Hidden inputs: `form-name="contacto"` and the `bot-field` honeypot.
+- `form name="contacto"` — every field needs a `name` attribute for Netlify capture.
+- Client-side fetch POSTs to `/` with `Content-Type: application/x-www-form-urlencoded`; shows a 4s toast (`#toast`) on success/error. Don't change the form action or method or Netlify will stop capturing.
 
-## Navigation
+## Navigation / a11y
 
-- One-page: anchors `#sobre-mi`, `#experiencia`, `#proyectos`, `#tecnologias`, `#contacto`
-- Fixed header with backdrop blur; mobile hamburger toggle with `max-height` animation
+- One-page anchors: `#sobre-mi`, `#experiencia`, `#proyectos`, `#tecnologias`, `#contacto`. `Cabecera` and the mobile menu link to these.
+- `index.astro` has a `Skip to main content` link (sr-only → focused).
+- Header is fixed with `bg-surface/90 backdrop-blur-sm`; sections set `scroll-margin-top: 80px` (via `global.css`).
+
+## Known gaps
+
+- `Layout.astro` references `${Astro.site}og-image.png` for OG/Twitter cards, but `public/og-image.png` does not exist — social shares currently 404. Add it before relying on social previews.
+
+## Repo-local OpenCode
+
+- `.opencode/commands/super-commit.md` — `super-commit` command: groups changes and writes Conventional Commits in **Spanish**, imperative mood, max 72 chars. Types: `feat`, `fix`, `refactor`, `style`, `docs`, `test`, `perf`, `chore`, `ci`, `build`, `revert`. Always `git add <file>` (never `-A` or `.`). Skip secrets (`.env`, `*.key`, `*.secret`).
+- Skills under `.opencode/skills/` (accessibility, best-practices, core-web-vitals, frontend-design, performance, seo, tailwind-css-patterns, typescript-advanced-types, web-quality-audit) — load via the `skill` tool when relevant.
