@@ -1,6 +1,7 @@
 ---
-import { Font } from "astro:assets";
-import "@/styles/global.css";
+import { Font } from 'astro:assets';
+import { SITE } from '@/data/site';
+import '@/styles/global.css';
 
 interface Props {
   title?: string;
@@ -8,11 +9,49 @@ interface Props {
 }
 
 const {
-  title = "Juan Fernández Ceacero — Ingeniero Informático | Desarrollo Web",
-  description = "Ingeniero informático recién graduado especializado en desarrollo web full stack. Experiencia en Laravel, PHP, Spring Boot, Astro y Tailwind CSS. Disponible para oportunidades profesionales.",
+  title = `${SITE.name} — ${SITE.role} | Desarrollo Web`,
+  description = 'Ingeniero informático full stack especializado en Laravel, Spring Boot, Astro y Tailwind. Disponible para nuevas oportunidades.',
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: SITE.name,
+  url: SITE.url,
+  jobTitle: SITE.role,
+  description: 'Ingeniero informático recién graduado especializado en desarrollo web full stack.',
+  inLanguage: 'es-ES',
+  email: SITE.email,
+  telephone: SITE.phone,
+  knowsAbout: [
+    'PHP',
+    'Laravel',
+    'JavaScript',
+    'TypeScript',
+    'Java',
+    'Spring Boot',
+    'Astro',
+    'Tailwind CSS',
+    'PostgreSQL',
+    'MySQL',
+  ],
+  alumniOf: {
+    '@type': 'CollegeOrUniversity',
+    name: SITE.university,
+  },
+  homeLocation: {
+    '@type': 'Place',
+    address: {
+      '@type': 'PostalAddress',
+      addressRegion: 'Andalucía',
+      addressCountry: 'ES',
+    },
+  },
+  sameAs: [SITE.linkedin, SITE.github],
+  image: `${SITE.url}/og-image.png`,
+};
 ---
 
 <!doctype html>
@@ -20,79 +59,56 @@ const canonicalURL = new URL(Astro.url.pathname, Astro.site);
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="icon" href="/favicon.ico" />
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <meta name="apple-mobile-web-app-title" content="Portfolio" />
     <link rel="canonical" href={canonicalURL} />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
-    <meta name="author" content="Juan Fernández Ceacero" />
+    <meta name="author" content={SITE.name} />
 
     <!-- Open Graph -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalURL} />
-    <meta property="og:image" content={`${Astro.site}og-image.png`} />
+    <meta property="og:image" content={`${SITE.url}/og-image.png`} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="es_ES" />
-    <meta property="og:site_name" content="Juan Fernández Ceacero" />
+    <meta property="og:site_name" content={SITE.name} />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={`${Astro.site}og-image.png`} />
+    <meta name="twitter:image" content={`${SITE.url}/og-image.png`} />
 
     <Font cssVariable="--font-jetbrains-mono" preload />
     <title>{title}</title>
 
     <!-- Structured Data (JSON-LD) -->
-    <script is:inline type="application/ld+json">
-      {
-        "@context": "https://schema.org",
-        "@type": "Person",
-        "name": "Juan Fernández Ceacero",
-        "url": "https://juanfc03.netlify.app",
-        "jobTitle": "Ingeniero Informático",
-        "description": "Ingeniero informático recién graduado especializado en desarrollo web full stack.",
-        "email": "juanf.ceacero@gmail.com",
-        "telephone": "+34622384951",
-        "knowsAbout": [
-          "PHP",
-          "Laravel",
-          "JavaScript",
-          "TypeScript",
-          "Java",
-          "Spring Boot",
-          "Astro",
-          "Tailwind CSS",
-          "PostgreSQL",
-          "MySQL"
-        ],
-        "alumniOf": {
-          "@type": "CollegeOrUniversity",
-          "name": "Universidad de Jaén"
-        },
-        "sameAs": [
-          "https://linkedin.com/in/juanfdez",
-          "https://github.com/juanfdez"
-        ],
-        "image": `${Astro.site}retrato-mio.png`
-      }
-    </script>
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   </head>
   <body class="bg-surface text-on-surface antialiased selection:bg-primary selection:text-on-primary">
     <slot />
+
+    <!-- Defer PWA manifest fetch out of the critical render path. -->
+    <script is:inline>
+      const injectManifest = () => {
+        const link = document.createElement('link');
+        link.rel = 'manifest';
+        link.href = '/site.webmanifest';
+        document.head.appendChild(link);
+      };
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(injectManifest);
+      } else {
+        addEventListener('load', injectManifest);
+      }
+    </script>
   </body>
 </html>
-
-<style>
-  html,
-  body {
-    margin: 0;
-    width: 100%;
-    height: 100%;
-  }
-</style>

@@ -1,27 +1,36 @@
 <nav
-  class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-sm border-b border-outline-variant transition-all duration-300 ease-in-out"
+  aria-label="Navegación principal"
+  class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-sm border-b border-outline-variant transition-colors duration-300 ease-in-out"
 >
   <div
     class="flex justify-between items-center h-20 px-margin-xs sm:px-margin-sm md:px-margin-md lg:px-margin-lg xl:px-margin-xl max-w-container-max mx-auto"
   >
-    <div class="hidden md:flex items-center gap-8">
-      <a
-        class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors"
-        href="#sobre-mi">Sobre mí</a
-      >
-      <a
-        class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors"
-        href="#experiencia">Experiencia</a
-      >
-      <a
-        class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors"
-        href="#proyectos">Proyectos</a
-      >
-      <a
-        class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors"
-        href="#tecnologias">Tecnologías</a
-      >
-    </div>
+    <ul class="nav-desktop hidden md:flex items-center gap-8">
+      <li>
+        <a
+          class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors"
+          href="#sobre-mi">Sobre mí</a
+        >
+      </li>
+      <li>
+        <a
+          class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors"
+          href="#experiencia">Experiencia</a
+        >
+      </li>
+      <li>
+        <a
+          class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors"
+          href="#proyectos">Proyectos</a
+        >
+      </li>
+      <li>
+        <a
+          class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors"
+          href="#tecnologias">Tecnologías</a
+        >
+      </li>
+    </ul>
     <a
       class="hidden md:inline-flex font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase bg-primary text-on-primary px-6 py-3 hover:bg-surface hover:text-primary border border-primary transition-colors"
       href="#contacto">Contáctame</a
@@ -68,67 +77,111 @@
       </svg>
     </button>
   </div>
-  <!-- Mobile Menu -->
+  <!-- Mobile Menu (max-height transition) -->
   <div
-    class="md:hidden overflow-hidden max-h-0 transition-all duration-300 ease-in-out"
+    class="mobile-menu md:hidden"
     id="mobile-menu"
+    data-open="false"
   >
-    <div
+    <ul
       class="px-margin-xs sm:px-margin-sm md:px-margin-md lg:px-margin-lg xl:px-margin-xl pb-6 flex flex-col gap-4"
     >
-      <a
-        class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors py-2 border-b border-outline-variant"
-        href="#sobre-mi">Sobre mí</a
-      >
-      <a
-        class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors py-2 border-b border-outline-variant"
-        href="#experiencia">Experiencia</a
-      >
-      <a
-        class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors py-2 border-b border-outline-variant"
-        href="#proyectos">Proyectos</a
-      >
-      <a
-        class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors py-2 border-b border-outline-variant"
-        href="#tecnologias">Tecnologías</a
-      >
-      <a
-        class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase bg-primary text-on-primary px-6 py-3 text-center hover:bg-surface hover:text-primary border border-primary transition-colors mt-2"
-        href="#contacto">Contáctame</a
-      >
-    </div>
+      <li>
+        <a
+          class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors py-2 border-b border-outline-variant"
+          href="#sobre-mi">Sobre mí</a
+        >
+      </li>
+      <li>
+        <a
+          class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors py-2 border-b border-outline-variant"
+          href="#experiencia">Experiencia</a
+        >
+      </li>
+      <li>
+        <a
+          class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors py-2 border-b border-outline-variant"
+          href="#proyectos">Proyectos</a
+        >
+      </li>
+      <li>
+        <a
+          class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors py-2 border-b border-outline-variant"
+          href="#tecnologias">Tecnologías</a
+        >
+      </li>
+      <li>
+        <a
+          class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase bg-primary text-on-primary px-6 py-3 text-center hover:bg-surface hover:text-primary border border-primary transition-colors mt-2"
+          href="#contacto">Contáctame</a
+        >
+      </li>
+    </ul>
   </div>
 </nav>
+
+<style>
+  /* Hide the desktop nav on mobile as a defense in depth (hidden should already do this). */
+  @media (max-width: 767px) {
+    .nav-desktop {
+      display: none !important;
+    }
+  }
+
+  /* Hide the mobile menu on desktop (overrides the default `display: block` on small screens). */
+  @media (min-width: 768px) {
+    .mobile-menu {
+      display: none !important;
+    }
+  }
+
+  .mobile-menu {
+    overflow: hidden;
+    max-height: 0;
+    transition: max-height 0.3s ease-in-out;
+  }
+  .mobile-menu[data-open='true'] {
+    max-height: 600px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-menu {
+      transition: none;
+    }
+  }
+</style>
 
 <script>
   const toggle = document.getElementById('menu-toggle');
   const menu = document.getElementById('mobile-menu');
   const iconMenu = document.getElementById('icon-menu');
   const iconClose = document.getElementById('icon-close');
-  let isOpen = false;
+
+  function setMenu(open: boolean, focusFirstLink = false) {
+    if (!toggle || !menu || !iconMenu || !iconClose) return;
+    menu.dataset.open = open ? 'true' : 'false';
+    iconMenu.classList.toggle('hidden', open);
+    iconClose.classList.toggle('hidden', !open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+
+    if (open && focusFirstLink) {
+      const firstLink = menu.querySelector<HTMLAnchorElement>('a');
+      firstLink?.focus();
+    }
+  }
 
   toggle?.addEventListener('click', () => {
-    isOpen = !isOpen;
-    if (isOpen) {
-      menu!.style.maxHeight = menu!.scrollHeight + 'px';
-      iconMenu!.classList.add('hidden');
-      iconClose!.classList.remove('hidden');
-      toggle!.setAttribute('aria-expanded', 'true');
-    } else {
-      menu!.style.maxHeight = '0';
-      iconMenu!.classList.remove('hidden');
-      iconClose!.classList.add('hidden');
-      toggle!.setAttribute('aria-expanded', 'false');
-    }
+    const willOpen = menu?.dataset.open !== 'true';
+    setMenu(willOpen, willOpen);
   });
 
   menu?.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      isOpen = false;
-      menu!.style.maxHeight = '0';
-      iconMenu!.classList.remove('hidden');
-      iconClose!.classList.add('hidden');
-      toggle!.setAttribute('aria-expanded', 'false');
-    });
+    link.addEventListener('click', () => setMenu(false));
+  });
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && menu?.dataset.open === 'true') {
+      setMenu(false);
+      toggle?.focus();
+    }
   });
 </script>

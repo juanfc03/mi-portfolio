@@ -1,27 +1,39 @@
+---
+import { SITE } from '@/data/site';
+
+const year = new Date().getFullYear();
+---
+
 <footer class="w-full py-16 bg-surface border-t border-outline-variant">
   <div
     class="flex flex-col md:flex-row justify-between items-center px-margin-xs sm:px-margin-sm md:px-margin-md lg:px-margin-lg xl:px-margin-xl max-w-container-max mx-auto gap-8"
   >
     <p class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant">
-      &copy; 2026 Juan Fernández&nbsp;Ceacero. Hecho con precisión.
+      &copy; {year} {SITE.name}. Hecho con precisión.
     </p>
-    <nav aria-label="Redes sociales" class="flex gap-6">
-      <a
-        class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary underline transition-all"
-        href="https://linkedin.com/in/juanfdez"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="LinkedIn de Juan Fernández (se abre en nueva pestaña)"
-        >LinkedIn</a
-      >
-      <a
-        class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary underline transition-all"
-        href="https://github.com/juanfdez"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="GitHub de Juan Fernández (se abre en nueva pestaña)"
-        >GitHub</a
-      >
+    <nav aria-label="Redes sociales">
+      <ul class="flex gap-6">
+        <li>
+          <a
+            class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary underline transition-colors"
+            href={SITE.linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="LinkedIn de Juan Fernández (se abre en nueva pestaña)"
+            >LinkedIn</a
+          >
+        </li>
+        <li>
+          <a
+            class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary underline transition-colors"
+            href={SITE.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub de Juan Fernández (se abre en nueva pestaña)"
+            >GitHub</a
+          >
+        </li>
+      </ul>
     </nav>
   </div>
 </footer>

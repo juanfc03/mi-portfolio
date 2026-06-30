@@ -7,16 +7,16 @@ import retratoMio from '../assets/retrato-mio.png';
   class="min-h-[calc(100vh-80px)] flex flex-col md:flex-row items-center justify-between px-margin-xs sm:px-margin-sm md:px-margin-md lg:px-margin-lg xl:px-margin-xl max-w-container-max mx-auto gap-12 py-section-y-xs sm:py-section-y-sm md:py-section-y-md lg:py-section-y-lg xl:py-section-y-xl"
 >
   <div class="flex-1 space-y-8">
-    <div>
+    <header>
       <h1 class="font-display-lg text-display-xs sm:text-display-sm md:text-display-md text-primary mb-4">
         Juan Fernández Ceacero
       </h1>
       <p
-        class="font-body-large text-body-large-xs sm:text-body-large-sm md:text-body-large-md text-on-surface-variant"
+        class="font-headline text-headline-xs sm:text-headline-sm md:text-headline-md text-on-surface-variant"
       >
         Ingeniero informático
       </p>
-    </div>
+    </header>
     <p class="font-body-large text-body-large-xs sm:text-body-large-sm md:text-body-large-md lg:text-body-large-lg xl:text-body-large-xl text-on-surface-variant max-w-xl">
       Ingeniero informático recién graduado. Construyo aplicaciones web modernas
       con foco en la calidad del código.
@@ -32,7 +32,7 @@ import retratoMio from '../assets/retrato-mio.png';
       >
     </div>
   </div>
-  <div class="flex-1 w-full max-w-md aspect-3/4 relative">
+  <figure class="flex-1 w-full max-w-md aspect-3/4 m-0 relative">
     <div
       class="absolute inset-0 bg-surface-variant border border-outline-variant overflow-hidden"
     >
@@ -42,9 +42,12 @@ import retratoMio from '../assets/retrato-mio.png';
         class="size-full object-cover grayscale mix-blend-multiply"
         loading="eager"
         fetchpriority="high"
+        decoding="sync"
         format="webp"
         quality={75}
+        widths={[400, 700]}
+        sizes="(max-width: 768px) 400px, 700px"
       />
     </div>
-  </div>
+  </figure>
 </section>

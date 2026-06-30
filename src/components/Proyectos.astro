@@ -1,5 +1,6 @@
 ---
 import { Image } from 'astro:assets';
+import { SITE } from '@/data/site';
 import proyectoTfg from '../assets/proyecto-tfg.png';
 import proyectoRosa from '../assets/proyecto-rosa.png';
 import proyectoKardia from '../assets/proyecto-kardia.png';
@@ -21,8 +22,8 @@ const proyectos: Proyecto[] = [
     descripcion:
       'Desarrollo de una página web de venta de coches con un asistente basado en IA integrado. El proyecto sigue una metodología de software rigurosa y aplica las últimas tecnologías del sector, incluyendo pasarela de pago con Stripe.',
     herramientas: ['Laravel', 'Livewire', 'Tailwind CSS', 'Stripe API'],
-    demoUrl: '#',
-    repositorioUrl: '#',
+    demoUrl: 'https://trabajo-fin-de-grado-jfc00031.free.laravel.cloud/',
+    repositorioUrl: `${SITE.github}/trabajo-fin-de-grado-carai`,
     imagen: proyectoTfg,
     imagenAlt: 'Plataforma de venta de coches con asistente IA',
     imagenIzquierda: true,
@@ -32,8 +33,8 @@ const proyectos: Proyecto[] = [
     descripcion:
       'Desarrollo de una página web profesional para una psicóloga, con diseño responsive, secciones de servicios, testimonios y sistema de contacto. Optimizada para SEO y rendimiento.',
     herramientas: ['Astro', 'Tailwind CSS'],
-    demoUrl: '#',
-    repositorioUrl: '#',
+    demoUrl: 'https://rosamruizpsicologa.es/',
+    repositorioUrl: `${SITE.github}/rosamr-web-psicologia`,
     imagen: proyectoRosa,
     imagenAlt: 'Página web de psicóloga profesional',
     imagenIzquierda: false,
@@ -43,8 +44,8 @@ const proyectos: Proyecto[] = [
     descripcion:
       'Página web moderna y de alto rendimiento enfocada en la velocidad de carga, accesibilidad y la gestión de formularios con Netlify Forms.',
     herramientas: ['Astro', 'Tailwind CSS', 'Netlify Forms'],
-    demoUrl: '#',
-    repositorioUrl: '#',
+    demoUrl: 'https://kardiaformacion.es/',
+    repositorioUrl: `${SITE.github}/maysu-web-formacion`,
     imagen: proyectoKardia,
     imagenAlt: 'Landing page de centro de formación profesional',
     imagenIzquierda: true,
@@ -57,11 +58,13 @@ const proyectos: Proyecto[] = [
   id="proyectos"
 >
   <div class="max-w-container-max mx-auto">
-    <h2
-      class="font-headline-lg text-headline-xs sm:text-headline-sm md:text-headline-md text-primary mb-16 md:mb-24"
-    >
-      03. Proyectos
-    </h2>
+    <header class="mb-16 md:mb-24">
+      <h2
+        class="font-headline-lg text-headline-xs sm:text-headline-sm md:text-headline-md text-primary"
+      >
+        03. Proyectos
+      </h2>
+    </header>
     <div class="space-y-32">
       {
         proyectos.map(proyecto => (
@@ -69,16 +72,19 @@ const proyectos: Proyecto[] = [
             <div
               class={`lg:col-span-7 order-2 ${proyecto.imagenIzquierda ? 'lg:order-1' : 'lg:order-2'}`}
             >
-              <div class="aspect-video bg-surface-variant border border-outline-variant w-full relative overflow-hidden group">
+              <figure class="aspect-video bg-surface-variant border border-outline-variant w-full m-0 relative overflow-hidden group">
                 <Image
                   src={proyecto.imagen}
                   alt={proyecto.imagenAlt}
                   class="size-full object-cover grayscale group-hover:grayscale-0 transition-all duration-700"
                   loading="lazy"
+                  decoding="async"
                   format="webp"
                   quality={75}
+                  widths={[400, 800]}
+                  sizes="(max-width: 768px) 400px, 800px"
                 />
-              </div>
+              </figure>
             </div>
             <div
               class={`lg:col-span-5 space-y-6 order-1 ${proyecto.imagenIzquierda ? 'lg:order-2' : 'lg:order-1'}`}
@@ -89,25 +95,29 @@ const proyectos: Proyecto[] = [
               <p class="font-body-large text-body-large-xs sm:text-body-large-sm md:text-body-large-md lg:text-body-large-lg xl:text-body-large-xl text-on-surface-variant">
                 {proyecto.descripcion}
               </p>
-              <div class="flex flex-wrap gap-2 pt-2">
+              <ul class="flex flex-wrap gap-2 pt-2">
                 {proyecto.herramientas.map(herramienta => (
-                  <span class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase border border-outline-variant px-3 py-1">
+                  <li class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase border border-outline-variant px-3 py-1">
                     {herramienta}
-                  </span>
+                  </li>
                 ))}
-              </div>
+              </ul>
               <div class="flex gap-6 pt-6">
                 <a
                   class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase text-primary border-b border-primary pb-1 hover:opacity-70 transition-opacity"
                   href={proyecto.demoUrl}
-                  aria-label={`Ver demo de ${proyecto.titulo}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Ver demo de ${proyecto.titulo} (se abre en nueva pestaña)`}
                 >
                   Ver demo
                 </a>
                 <a
-                  class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase text-on-surface-variant border-b border-on-surface-variant pb-1 hover:text-primary hover:border-primary transition-all"
+                  class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase text-on-surface-variant border-b border-on-surface-variant pb-1 hover:text-primary hover:border-primary transition-colors"
                   href={proyecto.repositorioUrl}
-                  aria-label={`Ver repositorio de ${proyecto.titulo}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Ver repositorio de ${proyecto.titulo} (se abre en nueva pestaña)`}
                 >
                   Repositorio
                 </a>

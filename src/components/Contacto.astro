@@ -1,3 +1,7 @@
+---
+import { SITE } from '@/data/site';
+---
+
 <section
   class="py-section-y-xs sm:py-section-y-sm md:py-section-y-md lg:py-section-y-lg xl:py-section-y-xl px-margin-xs sm:px-margin-sm md:px-margin-md lg:px-margin-lg xl:px-margin-xl border-t border-outline-variant"
   id="contacto"
@@ -5,33 +9,34 @@
   <div
     class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter-xs sm:gap-gutter-sm md:gap-gutter-md lg:gap-gutter-lg xl:gap-gutter-xl"
   >
-    <div class="md:col-span-4">
+    <header class="md:col-span-4">
       <h2
         class="font-headline-lg text-headline-xs sm:text-headline-sm md:text-headline-md text-primary"
       >
         05. Contacto
       </h2>
-    </div>
+    </header>
     <div class="md:col-span-8">
       <div class="mb-12">
         <p class="font-body-large text-body-large-xs sm:text-body-large-sm md:text-body-large-md lg:text-body-large-lg xl:text-body-large-xl text-on-surface-variant mb-2">
           ¿Buscas un desarrollador web para tu equipo o necesitas una página web
           profesional? No dudes en contactar conmigo.
         </p>
-        <a
-          class="font-headline-lg text-headline-xs sm:text-headline-sm md:text-headline-md text-primary hover:opacity-70 transition-opacity block break-all underline underline-offset-4"
-          href="mailto:juanf.ceacero@gmail.com">juanf.ceacero@gmail.com</a
-        >
-        <div class="mt-4">
-          <p class="font-body-large text-body-large-xs sm:text-body-large-sm md:text-body-large-md lg:text-body-large-lg xl:text-body-large-xl text-on-surface-variant mb-2">
-            O por WhatsApp:
-          </p>
+        <address class="not-italic">
           <a
-            class="font-headline-lg text-headline-xs sm:text-headline-sm md:text-headline-md text-primary hover:opacity-70 transition-opacity block underline underline-offset-4"
-            href="https://wa.me/34622384951?text=%C2%A1Hola%20Juan!"
-            >622384951</a
+            class="font-headline-lg text-headline-xs sm:text-headline-sm md:text-headline-md text-primary hover:opacity-70 transition-opacity block break-all underline underline-offset-4"
+            href={`mailto:${SITE.email}`}>{SITE.email}</a
           >
-        </div>
+          <div class="mt-4">
+            <p class="font-body-large text-body-large-xs sm:text-body-large-sm md:text-body-large-md lg:text-body-large-lg xl:text-body-large-xl text-on-surface-variant mb-2">
+              O por WhatsApp:
+            </p>
+            <a
+              class="font-headline-lg text-headline-xs sm:text-headline-sm md:text-headline-md text-primary hover:opacity-70 transition-opacity block underline underline-offset-4"
+              href={SITE.whatsappLink}>{SITE.phoneDisplay}</a
+            >
+          </div>
+        </address>
       </div>
       <form
         name="contacto"
@@ -95,7 +100,7 @@
           type="submit">Enviar mensaje</button
         >
       </form>
-      <p class="font-caption text-caption-xs md:text-caption-md lg:text-caption-lg text-on-surface-variant mt-16 italic">
+      <p class="font-caption text-caption-xs md:text-caption-md lg:text-caption-lg text-on-surface-variant mt-16">
         Gracias por visitar mi portfolio.
       </p>
     </div>
@@ -104,7 +109,7 @@
   <!-- Toast notification -->
   <div
     id="toast"
-    class="fixed top-24 right-4 z-50 flex items-center gap-3 px-6 py-4 shadow-lg opacity-0 pointer-events-none transition-all duration-300 ease-in-out translate-x-4"
+    class="fixed top-24 right-4 z-50 flex items-center gap-3 px-6 py-4 opacity-0 pointer-events-none transition-all duration-300 ease-in-out translate-x-4"
     role="status"
     aria-live="polite"
     aria-atomic="true"
@@ -112,6 +117,7 @@
     <svg
       id="toast-icon"
       class="size-5"
+      aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 24 24"
       fill="none"
@@ -141,15 +147,18 @@
 
   function showToast(type: 'success' | 'error', message: string) {
     toastIcon.innerHTML = iconPaths[type];
+    toastIcon.setAttribute('aria-hidden', 'true');
     toastMessage.textContent = message;
 
-    toast.className = `fixed top-24 right-4 z-50 flex items-center gap-3 px-6 py-4 shadow-lg transition-all duration-300 ease-in-out ${
+    toast.className = `fixed top-24 right-4 z-50 flex items-center gap-3 px-6 py-4 transition-all duration-300 ease-in-out ${
       type === 'success' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
     } opacity-100 translate-x-0 pointer-events-auto`;
 
+    toast.setAttribute('role', type === 'error' ? 'alert' : 'status');
+
     setTimeout(() => {
       toast.className =
-        'fixed top-24 right-4 z-50 flex items-center gap-3 px-6 py-4 shadow-lg transition-all duration-300 ease-in-out opacity-0 translate-x-4 pointer-events-none';
+        'fixed top-24 right-4 z-50 flex items-center gap-3 px-6 py-4 transition-all duration-300 ease-in-out opacity-0 translate-x-4 pointer-events-none';
     }, 4000);
   }
 
@@ -157,12 +166,15 @@
     e.preventDefault();
 
     const formData = new FormData(form);
+    const body = new URLSearchParams(
+      Array.from(formData, ([key, value]) => [key, String(value)]),
+    ).toString();
 
     try {
       const response = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(formData as any).toString(),
+        body,
       });
 
       if (response.ok) {

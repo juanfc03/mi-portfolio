@@ -31,18 +31,18 @@ const categorias: CategoriaTecnologia[] = [
   <div
     class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-12 gap-gutter-xs sm:gap-gutter-sm md:gap-gutter-md lg:gap-gutter-lg xl:gap-gutter-xl"
   >
-    <div class="md:col-span-4">
+    <header class="md:col-span-4">
       <h2
         class="font-headline-lg text-headline-xs sm:text-headline-sm md:text-headline-md text-primary sticky top-32"
       >
         04. Tecnologías
       </h2>
-    </div>
+    </header>
     <div class="md:col-span-8">
       <div class="grid grid-cols-2 sm:grid-cols-3 gap-y-12 gap-x-8">
         {
           categorias.map(categoria => (
-            <div>
+            <article>
               <h3 class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase text-on-surface-variant mb-4">
                 {categoria.nombre}
               </h3>
@@ -51,7 +51,7 @@ const categorias: CategoriaTecnologia[] = [
                   <li>{tech}</li>
                 ))}
               </ul>
-            </div>
+            </article>
           ))
         }
       </div>
