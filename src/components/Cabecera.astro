@@ -1,33 +1,99 @@
-<nav class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-sm border-b border-outline-variant transition-all duration-300 ease-in-out">
-  <div class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto">
+<nav
+  class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-sm border-b border-outline-variant transition-all duration-300 ease-in-out"
+>
+  <div
+    class="flex justify-between items-center h-20 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto"
+  >
     <div class="hidden md:flex items-center gap-8">
-      <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#sobre-mi">Sobre mí</a>
-      <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#experiencia">Experiencia</a>
-      <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#proyectos">Proyectos</a>
-      <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#tecnologias">Tecnologías</a>
+      <a
+        class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors"
+        href="#sobre-mi">Sobre mí</a
+      >
+      <a
+        class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors"
+        href="#experiencia">Experiencia</a
+      >
+      <a
+        class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors"
+        href="#proyectos">Proyectos</a
+      >
+      <a
+        class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors"
+        href="#tecnologias">Tecnologías</a
+      >
     </div>
-    <a class="hidden md:inline-flex font-label-md text-label-md uppercase bg-primary text-on-primary px-6 py-3 hover:bg-surface hover:text-primary border border-primary transition-colors" href="#contacto">Contáctame</a>
+    <a
+      class="hidden md:inline-flex font-label-md text-label-md uppercase bg-primary text-on-primary px-6 py-3 hover:bg-surface hover:text-primary border border-primary transition-colors"
+      href="#contacto">Contáctame</a
+    >
     <!-- Mobile Menu Button -->
-    <button aria-label="Abrir menú de navegación" aria-expanded="false" aria-controls="mobile-menu" class="md:hidden text-primary w-10 h-10 flex items-center justify-center" id="menu-toggle">
-      <svg id="icon-menu" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <button
+      aria-label="Abrir menú de navegación"
+      aria-expanded="false"
+      aria-controls="mobile-menu"
+      class="md:hidden text-primary w-10 h-10 flex items-center justify-center"
+      id="menu-toggle"
+    >
+      <svg
+        id="icon-menu"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
         <line x1="3" y1="6" x2="21" y2="6"></line>
         <line x1="3" y1="12" x2="21" y2="12"></line>
         <line x1="3" y1="18" x2="21" y2="18"></line>
       </svg>
-      <svg id="icon-close" class="hidden" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <svg
+        id="icon-close"
+        class="hidden"
+        xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+      >
         <line x1="18" y1="6" x2="6" y2="18"></line>
         <line x1="6" y1="6" x2="18" y2="18"></line>
       </svg>
     </button>
   </div>
   <!-- Mobile Menu -->
-  <div class="md:hidden overflow-hidden max-h-0 transition-all duration-300 ease-in-out" id="mobile-menu">
+  <div
+    class="md:hidden overflow-hidden max-h-0 transition-all duration-300 ease-in-out"
+    id="mobile-menu"
+  >
     <div class="px-margin-mobile pb-6 flex flex-col gap-4">
-      <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors py-2 border-b border-outline-variant" href="#sobre-mi">Sobre mí</a>
-      <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors py-2 border-b border-outline-variant" href="#experiencia">Experiencia</a>
-      <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors py-2 border-b border-outline-variant" href="#proyectos">Proyectos</a>
-      <a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors py-2 border-b border-outline-variant" href="#tecnologias">Tecnologías</a>
-      <a class="font-label-md text-label-md uppercase bg-primary text-on-primary px-6 py-3 text-center hover:bg-surface hover:text-primary border border-primary transition-colors mt-2" href="#contacto">Contáctame</a>
+      <a
+        class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors py-2 border-b border-outline-variant"
+        href="#sobre-mi">Sobre mí</a
+      >
+      <a
+        class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors py-2 border-b border-outline-variant"
+        href="#experiencia">Experiencia</a
+      >
+      <a
+        class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors py-2 border-b border-outline-variant"
+        href="#proyectos">Proyectos</a
+      >
+      <a
+        class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors py-2 border-b border-outline-variant"
+        href="#tecnologias">Tecnologías</a
+      >
+      <a
+        class="font-label-md text-label-md uppercase bg-primary text-on-primary px-6 py-3 text-center hover:bg-surface hover:text-primary border border-primary transition-colors mt-2"
+        href="#contacto">Contáctame</a
+      >
     </div>
   </div>
 </nav>
@@ -54,7 +120,7 @@
     }
   });
 
-  menu?.querySelectorAll('a').forEach((link) => {
+  menu?.querySelectorAll('a').forEach(link => {
     link.addEventListener('click', () => {
       isOpen = false;
       menu!.style.maxHeight = '0';

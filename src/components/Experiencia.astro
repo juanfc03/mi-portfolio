@@ -9,40 +9,61 @@ interface Experiencia {
 
 const experiencias: Experiencia[] = [
   {
-    empresa: "Innovation Studio",
-    puesto: "Desarrollador de aplicaciones web",
-    periodo: "oct. 2025 — dic. 2025 · 3 meses",
-    ubicacion: "Jaén, Andalucía, España · Híbrido",
+    empresa: 'Innovation Studio',
+    puesto: 'Desarrollador de aplicaciones web',
+    periodo: 'oct. 2025 — dic. 2025 · 3 meses',
+    ubicacion: 'Jaén, Andalucía, España · Híbrido',
     descripcion:
-      "Colaboración en el desarrollo y mantenimiento de páginas web utilizando PHP y Laravel. Participación en el ciclo completo de desarrollo, incluyendo diseño de funcionalidades, implementación y pruebas. Migración de proyectos antiguos a las últimas versiones de Laravel.",
+      'Colaboración en el desarrollo y mantenimiento de páginas web utilizando PHP y Laravel. Participación en el ciclo completo de desarrollo, incluyendo diseño de funcionalidades, implementación y pruebas. Migración de proyectos antiguos a las últimas versiones de Laravel.',
   },
 ];
 ---
 
-<section class="py-24 md:py-32 px-margin-mobile md:px-margin-desktop border-t border-outline-variant bg-surface-bright" id="experiencia">
-  <div class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-gutter">
+<section
+  class="py-24 md:py-32 px-margin-mobile md:px-margin-desktop border-t border-outline-variant bg-surface-bright"
+  id="experiencia"
+>
+  <div
+    class="max-w-container-max mx-auto grid grid-cols-1 md:grid-cols-12 gap-8 md:gap-gutter"
+  >
     <div class="md:col-span-4">
-      <h2 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary sticky top-32">02. Experiencia</h2>
+      <h2
+        class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-primary sticky top-32"
+      >
+        02. Experiencia
+      </h2>
     </div>
     <div class="md:col-span-8">
       <div class="space-y-16">
-        {experiencias.map((exp) => (
-          <article class="border-t border-outline-variant pt-8">
-            <div class="flex flex-col md:flex-row md:justify-between md:items-baseline mb-4 gap-2">
-              <div>
-                <h3 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">{exp.empresa}</h3>
-                <p class="font-body-md text-body-md text-on-surface-variant mt-1">{exp.puesto}</p>
+        {
+          experiencias.map(exp => (
+            <article class="border-t border-outline-variant pt-8">
+              <div class="flex flex-col md:flex-row md:justify-between md:items-baseline mb-4 gap-2">
+                <div>
+                  <h3 class="font-headline-lg-mobile text-headline-lg-mobile text-primary">
+                    {exp.empresa}
+                  </h3>
+                  <p class="font-body-md text-body-md text-on-surface-variant mt-1">
+                    {exp.puesto}
+                  </p>
+                </div>
+                <div class="text-right">
+                  <span class="font-label-md text-label-md uppercase text-on-surface-variant block">
+                    {exp.periodo}
+                  </span>
+                  {exp.ubicacion && (
+                    <span class="font-body-md text-body-md text-on-surface-variant mt-1 block">
+                      {exp.ubicacion}
+                    </span>
+                  )}
+                </div>
               </div>
-              <div class="text-right">
-                <span class="font-label-md text-label-md uppercase text-on-surface-variant block">{exp.periodo}</span>
-                {exp.ubicacion && <span class="font-body-md text-body-md text-on-surface-variant mt-1 block">{exp.ubicacion}</span>}
-              </div>
-            </div>
-            <p class="font-body-lg text-body-lg text-on-surface-variant">
-              {exp.descripcion}
-            </p>
-          </article>
-        ))}
+              <p class="font-body-lg text-body-lg text-on-surface-variant">
+                {exp.descripcion}
+              </p>
+            </article>
+          ))
+        }
       </div>
     </div>
   </div>
