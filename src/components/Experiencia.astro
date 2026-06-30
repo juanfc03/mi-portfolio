@@ -2,20 +2,29 @@
 interface Experiencia {
   empresa: string;
   puesto: string;
-  periodo: string;
   fechaInicio: string;
   fechaFin: string;
+  duracion: string;
   ubicacion?: string;
   descripcion: string;
 }
+
+const formatFecha = (iso: string) => {
+  const [year, month] = iso.split('-').map(Number);
+  return new Intl.DateTimeFormat('es-ES', {
+    month: 'short',
+    year: 'numeric',
+    timeZone: 'UTC',
+  }).format(new Date(Date.UTC(year, month - 1)));
+};
 
 const experiencias: Experiencia[] = [
   {
     empresa: 'Innovation Studio',
     puesto: 'Desarrollador de aplicaciones web',
-    periodo: 'oct. 2025 — dic. 2025 · 3 meses',
     fechaInicio: '2025-10',
     fechaFin: '2025-12',
+    duracion: '3 meses',
     ubicacion: 'Jaén, Andalucía, España · Híbrido',
     descripcion:
       'Colaboración en el desarrollo y mantenimiento de páginas web utilizando PHP y Laravel. Participación en el ciclo completo de desarrollo, incluyendo diseño de funcionalidades, implementación y pruebas. Migración de proyectos antiguos a las últimas versiones de Laravel.',
@@ -53,7 +62,7 @@ const experiencias: Experiencia[] = [
                 </div>
                 <div class="text-right">
                   <span class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase text-on-surface-variant block">
-                    <time datetime={exp.fechaInicio}>oct. 2025</time> — <time datetime={exp.fechaFin}>dic. 2025</time> · 3 meses
+                    <time datetime={exp.fechaInicio}>{formatFecha(exp.fechaInicio)}</time> — <time datetime={exp.fechaFin}>{formatFecha(exp.fechaFin)}</time> · {exp.duracion}
                   </span>
                   {exp.ubicacion && (
                     <address class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant mt-1 block not-italic">

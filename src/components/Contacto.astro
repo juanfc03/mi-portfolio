@@ -132,9 +132,7 @@ import { SITE } from '@/data/site';
 <script>
   const form = document.getElementById('contact-form') as HTMLFormElement;
   const toast = document.getElementById('toast') as HTMLDivElement;
-  const toastIcon = document.getElementById(
-    'toast-icon',
-  ) as unknown as SVGSVGElement;
+  const toastIcon = document.querySelector<SVGSVGElement>('#toast-icon')!;
   const toastMessage = document.getElementById(
     'toast-message',
   ) as HTMLParagraphElement;
@@ -155,6 +153,7 @@ import { SITE } from '@/data/site';
     } opacity-100 translate-x-0 pointer-events-auto`;
 
     toast.setAttribute('role', type === 'error' ? 'alert' : 'status');
+    toast.setAttribute('aria-live', type === 'error' ? 'assertive' : 'polite');
 
     setTimeout(() => {
       toast.className =

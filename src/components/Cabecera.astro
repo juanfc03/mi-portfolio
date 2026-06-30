@@ -82,6 +82,7 @@
     class="mobile-menu md:hidden"
     id="mobile-menu"
     data-open="false"
+    inert
   >
     <ul
       class="px-margin-xs sm:px-margin-sm md:px-margin-md lg:px-margin-lg xl:px-margin-xl pb-6 flex flex-col gap-4"
@@ -159,6 +160,7 @@
   function setMenu(open: boolean, focusFirstLink = false) {
     if (!toggle || !menu || !iconMenu || !iconClose) return;
     menu.dataset.open = open ? 'true' : 'false';
+    menu.inert = !open;
     iconMenu.classList.toggle('hidden', open);
     iconClose.classList.toggle('hidden', !open);
     toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
