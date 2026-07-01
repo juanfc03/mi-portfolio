@@ -1,0 +1,24 @@
+---
+import { getCollection, render } from 'astro:content';
+import Layout from '@/layouts/Layout.astro';
+import ProyectoDetalle from '@/components/ProyectoDetalle.astro';
+import type { GetStaticPaths } from 'astro';
+
+export const getStaticPaths = (async () => {
+  const proyectos = await getCollection('proyectos');
+  return proyectos.map(proyecto => ({
+    params: { slug: proyecto.id },
+    props: { proyecto },
+  }));
+}) satisfies GetStaticPaths;
+
+const { proyecto } = Astro.props;
+const { Content } = await render(proyecto);
+---
+
+<Layout
+  title={`${proyecto.data.titulo} — Proyectos | Juan Fernández Ceacero`}
+  description={proyecto.data.descripcion}
+>
+  <ProyectoDetalle proyecto={proyecto} Content={Content} />
+</Layout>

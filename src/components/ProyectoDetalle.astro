@@ -1,0 +1,241 @@
+---
+import { Image } from 'astro:assets';
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  proyecto: CollectionEntry<'proyectos'>;
+  Content: any;
+}
+
+const { proyecto, Content } = Astro.props;
+const { id, data } = proyecto;
+const nombreTransicion = `proyecto-${id}`;
+---
+
+<article class="proyecto-detalle">
+  <div
+    class="px-margin-xs sm:px-margin-sm md:px-margin-md lg:px-margin-lg xl:px-margin-xl border-b border-outline-variant"
+  >
+    <div
+      class="max-w-container-max mx-auto py-section-y-sm sm:py-section-y-md md:py-section-y-md grid grid-cols-1 md:grid-cols-12 gap-gutter-md lg:gap-gutter-xl items-start"
+    >
+      <div class="md:col-span-7 order-1 relative">
+        <button
+          type="button"
+          id="volver-detalle"
+          class="volver-superior inline-flex items-center gap-2 font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase text-on-surface-variant hover:text-primary transition-colors mb-4 cursor-pointer"
+          aria-label="Volver a la posición anterior"
+        >
+          <svg
+            aria-hidden="true"
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <line x1="19" y1="12" x2="5" y2="12"></line>
+            <polyline points="12 19 5 12 12 5"></polyline>
+          </svg>
+          Volver
+        </button>
+        <figure class="m-0">
+          <div
+            class="aspect-4/3 bg-surface-variant border border-outline-variant overflow-hidden"
+            transition:name={nombreTransicion}
+          >
+            <Image
+              src={data.imagen}
+              alt={data.imagenAlt}
+              class="size-full object-cover"
+              loading="eager"
+              fetchpriority="high"
+              decoding="async"
+              format="webp"
+              quality={75}
+              widths={[400, 640, 832, 1088, data.imagen.width]}
+              sizes="(max-width: 480px) 400px, (max-width: 768px) 640px, (max-width: 1024px) 832px, 768px"
+            />
+          </div>
+        </figure>
+      </div>
+
+      <div class="md:col-span-5 order-2 space-y-8 md:pt-12">
+        <h1
+          class="font-headline-lg text-headline-sm sm:text-headline-md md:text-headline-lg text-primary"
+          transition:name={`proyecto-${id}-titulo`}
+        >
+          {data.titulo}
+        </h1>
+        <div class="space-y-3">
+          <p
+            class="detalle-reveal font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase text-on-surface-variant"
+            style="--detalle-reveal-delay: 240ms"
+          >
+            Stack
+          </p>
+          <ul
+            class="flex flex-wrap gap-2"
+            transition:name={`proyecto-${id}-herramientas`}
+          >
+            {
+              data.herramientas.map(herramienta => (
+                <li class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase border border-outline-variant px-3 py-1">
+                  {herramienta}
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+        <div
+          class="detalle-reveal flex flex-wrap gap-x-6 gap-y-3"
+          style="--detalle-reveal-delay: 360ms"
+        >
+          <a
+            class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase text-primary border-b border-primary pb-1 hover:opacity-70 transition-opacity"
+            href={data.demoUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Ver demo de ${data.titulo} (se abre en nueva pestaña)`}
+          >
+            Ver demo
+          </a>
+          <a
+            class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase text-on-surface-variant border-b border-on-surface-variant pb-1 hover:text-primary hover:border-primary transition-colors"
+            href={data.repositorioUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`Ver repositorio de ${data.titulo} (se abre en nueva pestaña)`}
+          >
+            Repositorio
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="detalle-contenido px-margin-xs sm:px-margin-sm md:px-margin-md lg:px-margin-lg xl:px-margin-xl"
+  >
+    <div class="max-w-3xl mx-auto py-section-y-sm sm:py-section-y-md">
+      <Content />
+    </div>
+  </div>
+</article>
+
+<style>
+  .detalle-reveal {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: detalle-reveal 700ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: var(--detalle-reveal-delay, 0ms);
+  }
+
+  @keyframes detalle-reveal {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .detalle-contenido :global(h2) {
+    font-family: var(--font-headline-lg);
+    font-size: var(--text-headline-sm);
+    color: var(--color-primary);
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+  }
+  .detalle-contenido :global(h2:first-child) {
+    margin-top: 0;
+  }
+  .detalle-contenido :global(p) {
+    font-family: var(--font-body-large);
+    font-size: var(--text-body-large-md);
+    color: var(--color-on-surface-variant);
+    line-height: 1.7;
+    margin-bottom: 1rem;
+  }
+  .detalle-contenido :global(ul),
+  .detalle-contenido :global(ol) {
+    margin: 1rem 0 1rem 1.5rem;
+    color: var(--color-on-surface-variant);
+  }
+  .detalle-contenido :global(li) {
+    margin-bottom: 0.5rem;
+    line-height: 1.7;
+  }
+  .detalle-contenido :global(strong) {
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+  .detalle-contenido :global(code) {
+    font-family: var(--font-jetbrains-mono);
+    background: var(--color-surface-variant);
+    padding: 0.1em 0.3em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .detalle-reveal {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  // Botón "Volver" del detalle: hace history.back() (que ClientRouter ya
+  // intercepta para disparar view transition + restaurar scroll a la posición
+  // exacta donde estaba el usuario). Si el usuario entró directo a esta URL
+  // (deep link / refresh), sessionStorage no tiene la ruta anterior y se
+  // hace fallback a location.href = '/'.
+  const inicializarVolverDetalle = () => {
+    const boton = document.getElementById('volver-detalle');
+    if (!boton || boton.dataset.inicializado === 'true') return;
+    boton.dataset.inicializado = 'true';
+
+    boton.addEventListener('click', () => {
+      let ultimaRuta: string | null = null;
+      try {
+        ultimaRuta = sessionStorage.getItem('jfc-ultima-ruta');
+      } catch {}
+      if (ultimaRuta !== null && history.length > 1) {
+        history.back();
+      } else {
+        location.href = '/';
+      }
+    });
+  };
+
+  // Restaura la posición de scroll SIN animación al volver a la home.
+  // Astro 7 con <ClientRouter /> restaura el scroll automáticamente, pero el
+  // `class="scroll-smooth"` del <html> provoca que `scrollTo` se anime. Este
+  // listener intercepta `astro:before-swap` cuando la navegación es back/forward
+  // y fuerza `behavior: 'instant'` para que la vuelta a la posición anterior
+  // sea directa. En navegación forward (push nueva entrada) hace scroll al top.
+  document.addEventListener('astro:before-swap', (event: any) => {
+    if (event?.navigationType === 'traverse') {
+      const scrollYAnterior = history.state?.scrollY ?? 0;
+      requestAnimationFrame(() => {
+        window.scrollTo({
+          top: scrollYAnterior,
+          left: 0,
+          behavior: 'instant' as ScrollBehavior,
+        });
+      });
+    } else {
+      window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'instant' as ScrollBehavior,
+      });
+    }
+  });
+
+  inicializarVolverDetalle();
+  document.addEventListener('astro:page-load', inicializarVolverDetalle);
+</script>
