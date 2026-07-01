@@ -1,5 +1,6 @@
 ---
 import { Font } from 'astro:assets';
+import { ClientRouter } from 'astro:transitions';
 import { SITIO } from '@/data/sitio';
 import Cabecera from '@/components/Cabecera.astro';
 import PiePagina from '@/components/PiePagina.astro';
@@ -90,6 +91,7 @@ const datosEstructurados = {
       cssVariable="--font-jetbrains-mono"
       preload={[{ weight: 400, style: 'normal', subset: 'latin' }]}
     />
+    <ClientRouter />
     <title>{title}</title>
 
     <!-- Datos estructurados (JSON-LD) -->
@@ -108,25 +110,42 @@ const datosEstructurados = {
     >
       Saltar al contenido principal
     </a>
-    <Cabecera />
+    <Cabecera transition:persist="cabecera" />
     <main id="contenido-principal" class="pt-20">
       <slot />
     </main>
-    <PiePagina />
+    <PiePagina transition:persist="pie-pagina" />
 
     <!-- Aplazar la carga del manifest PWA fuera de la ruta crítica de renderizado. -->
     <script is:inline>
       const inyectarManifest = () => {
+        if (document.querySelector('link[rel="manifest"]')) return;
         const enlace = document.createElement('link');
         enlace.rel = 'manifest';
         enlace.href = '/site.webmanifest';
         document.head.appendChild(enlace);
       };
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(inyectarManifest);
-      } else {
-        addEventListener('load', inyectarManifest);
-      }
+      const alCargar = () => {
+        if ('requestIdleCallback' in window) {
+          requestIdleCallback(inyectarManifest);
+        } else {
+          setTimeout(inyectarManifest, 0);
+        }
+      };
+      alCargar();
+      document.addEventListener('astro:page-load', alCargar);
+
+      // Guardar la ruta anterior en cada navegación SPA para que el botón
+      // "Volver" del detalle pueda distinguir entre "el usuario llegó desde
+      // la home vía SPA" (history.back funciona) y "el usuario entró directo
+      // a esta URL" (hay que navegar a / explícitamente). document.referrer
+      // NO se actualiza con pushState, por eso necesitamos esto.
+      document.addEventListener('astro:before-preparation', event => {
+        try {
+          const desde = event?.from?.pathname;
+          if (desde) sessionStorage.setItem('jfc-ultima-ruta', desde);
+        } catch {}
+      });
     </script>
   </body>
 </html>
