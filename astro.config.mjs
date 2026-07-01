@@ -12,7 +12,15 @@ export default defineConfig({
     inlineStylesheets: 'always',
   },
   vite: {
-    plugins: [tailwindcss()],
+    plugins: [
+      tailwindcss(),
+      {
+        name: 'increase-max-listeners',
+        configureServer(server) {
+          server.httpServer?.setMaxListeners(20);
+        },
+      },
+    ],
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
@@ -32,13 +40,5 @@ export default defineConfig({
   ],
   integrations: [
     sitemap(),
-    {
-      name: 'increase-max-listeners',
-      hooks: {
-        'astro:server:setup': ({ server }) => {
-          server.httpServer?.setMaxListeners(20);
-        },
-      },
-    },
   ],
 });
