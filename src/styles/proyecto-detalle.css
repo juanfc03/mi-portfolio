@@ -28,6 +28,7 @@
   display: block;
   white-space: pre;
   line-height: 1.3;
+  min-height: 1.3em;
 }
 
 .codigo-bloque .cursor {
