@@ -32,5 +32,13 @@ export default defineConfig({
   ],
   integrations: [
     sitemap(),
+    {
+      name: 'increase-max-listeners',
+      hooks: {
+        'astro:server:setup': ({ server }) => {
+          server.httpServer?.setMaxListeners(20);
+        },
+      },
+    },
   ],
 });
