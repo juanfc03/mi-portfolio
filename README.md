@@ -22,23 +22,30 @@ Portfolio personal de Ingeniería Informática con diseño editorial minimalista
 
 ```
 src/
-├── components/     # 8 componentes Astro (nombres en español)
-│   ├── Cabecera.astro        # Nav + menú móvil (header sticky)
+├── components/     # Componentes Astro (nombres en español)
+│   ├── Cabecera.astro        # Nav + menú móvil (header sticky, transition:persist)
 │   ├── Inicio.astro          # Hero con retrato (LCP)
 │   ├── SobreMi.astro         # Bio + descarga de CV
 │   ├── Experiencia.astro     # Artículos de experiencia (<article>)
-│   ├── Proyectos.astro       # Artículos de proyecto con <figure>
+│   ├── Proyectos.astro       # Listado de proyectos en la home
+│   ├── TarjetaProyecto.astro # Tarjeta reutilizable con transition:name (solo "Ver proyecto")
+│   ├── ProyectoDetalle.astro # Layout de detalle con reveal + progress bar + "Ver demo/Repositorio"
 │   ├── Tecnologias.astro     # Stack agrupado en <article> por categoría
 │   ├── Contacto.astro        # <address> + formulario Netlify Forms
-│   └── PiePagina.astro       # Copyright + redes sociales
+│   └── PiePagina.astro       # Copyright + redes sociales (transition:persist)
+├── content/
+│   └── proyectos/   # Content collection (markdown) con Zod
 ├── data/
 │   └── sitio.ts        # Única fuente de verdad (nombre, rol, correo, redes, etc.)
 ├── layouts/
-│   └── Layout.astro   # <head>, meta, JSON-LD Person, manifest deferral
+│   └── Layout.astro   # <head>, meta, JSON-LD, <ClientRouter />, manifest deferral
 ├── pages/
-│   └── index.astro    # Secciones (skip link y shell están en Layout.astro)
+│   ├── index.astro    # Secciones (skip link y shell están en Layout.astro)
+│   └── proyectos/
+│       ├── index.astro # Redirige a / (Astro.redirect + _redirects Netlify)
+│       └── [slug].astro # Detalle dinámico por proyecto (getStaticPaths)
 ├── styles/
-│   └── global.css     # Tokens @theme + resets + :focus-visible
+│   └── global.css     # Tokens @theme + resets + :focus-visible + reduced-motion
 └── assets/            # Imágenes fuente (PNG, importadas vía astro:assets)
 public/
 ├── favicon.svg / favicon.ico / favicon-96x96.png
