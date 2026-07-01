@@ -36,7 +36,7 @@ src/
 ├── layouts/
 │   └── Layout.astro   # <head>, meta, JSON-LD Person, manifest deferral
 ├── pages/
-│   └── index.astro    # Skip link + secciones
+│   └── index.astro    # Secciones (skip link y shell están en Layout.astro)
 ├── styles/
 │   └── global.css     # Tokens @theme + resets + :focus-visible
 └── assets/            # Imágenes fuente (PNG, importadas vía astro:assets)

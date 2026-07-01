@@ -8,7 +8,9 @@ import retratoMio from '../assets/retrato-mio.png';
 >
   <div class="flex-1 space-y-8">
     <header>
-      <h1 class="font-display-lg text-display-xs sm:text-display-sm md:text-display-md text-primary mb-4">
+      <h1
+        class="font-display-lg text-display-xs sm:text-display-sm md:text-display-md text-primary mb-4"
+      >
         Juan Fernández Ceacero
       </h1>
       <p
@@ -17,7 +19,9 @@ import retratoMio from '../assets/retrato-mio.png';
         Ingeniero informático
       </p>
     </header>
-    <p class="font-body-large text-body-large-xs sm:text-body-large-sm md:text-body-large-md lg:text-body-large-lg xl:text-body-large-xl text-on-surface-variant max-w-xl">
+    <p
+      class="font-body-large text-body-large-xs sm:text-body-large-sm md:text-body-large-md lg:text-body-large-lg xl:text-body-large-xl text-on-surface-variant max-w-xl"
+    >
       Ingeniero informático recién graduado. Construyo aplicaciones web modernas
       con foco en la calidad del código.
     </p>
@@ -42,11 +46,11 @@ import retratoMio from '../assets/retrato-mio.png';
         class="size-full object-cover grayscale mix-blend-multiply"
         loading="eager"
         fetchpriority="high"
-        decoding="sync"
+        decoding="async"
         format="webp"
         quality={75}
-        widths={[retratoMio.width]}
-        sizes={`${retratoMio.width}px`}
+        widths={[320, 448, 640, 832, retratoMio.width]}
+        sizes="(max-width: 480px) 320px, (max-width: 768px) 448px, (max-width: 1024px) 640px, (max-width: 1280px) 832px, 1024px"
       />
     </div>
   </figure>

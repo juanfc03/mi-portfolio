@@ -16,7 +16,7 @@
   --color-surface: #fbf9f9;
   --color-on-surface: #1b1c1c;
   --color-on-surface-variant: #444748;
-  --color-surface-bright: #fbf9f9;
+  --color-surface-bright: #f5f3f3;
   --color-surface-variant: #e4e2e2;
 
   --color-outline: #747878;
@@ -71,8 +71,9 @@
   --text-caption-lg: 12px;
 }
 
-/* Margen de scroll para la cabecera fija */
-[id] {
+/* Margen de scroll para la cabecera fija (solo destinos reales de scroll) */
+section[id],
+main[id] {
   scroll-margin-top: 80px;
 }
 

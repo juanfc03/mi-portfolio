@@ -43,13 +43,10 @@ const datosEstructurados = {
     '@type': 'CollegeOrUniversity',
     name: SITIO.universidad,
   },
-  homeLocation: {
-    '@type': 'Place',
-    address: {
-      '@type': 'PostalAddress',
-      addressRegion: 'Andalucía',
-      addressCountry: 'ES',
-    },
+  address: {
+    '@type': 'PostalAddress',
+    addressRegion: 'Andalucía',
+    addressCountry: 'ES',
   },
   sameAs: [SITIO.enlaceLinkedin, SITIO.enlaceGithub],
   image: `${SITIO.url}/og-image.png`,
@@ -89,7 +86,10 @@ const datosEstructurados = {
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={`${SITIO.url}/og-image.png`} />
 
-    <Font cssVariable="--font-jetbrains-mono" preload />
+    <Font
+      cssVariable="--font-jetbrains-mono"
+      preload={[{ weight: 400, style: 'normal', subset: 'latin' }]}
+    />
     <title>{title}</title>
 
     <!-- Datos estructurados (JSON-LD) -->

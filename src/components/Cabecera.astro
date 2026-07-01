@@ -161,6 +161,10 @@
     iconoMenu.classList.toggle('hidden', abierto);
     iconoCerrar.classList.toggle('hidden', !abierto);
     botonAlternar.setAttribute('aria-expanded', abierto ? 'true' : 'false');
+    botonAlternar.setAttribute(
+      'aria-label',
+      abierto ? 'Cerrar menú de navegación' : 'Abrir menú de navegación',
+    );
 
     if (abierto && enfocarPrimerEnlace) {
       const primerEnlace = menu.querySelector<HTMLAnchorElement>('a');
@@ -173,9 +177,11 @@
     establecerMenu(seAbrira, seAbrira);
   });
 
-  menu?.querySelectorAll('a').forEach(enlace => {
-    enlace.addEventListener('click', () => establecerMenu(false));
-  });
+  if (menu) {
+    menu.querySelectorAll('a').forEach(enlace => {
+      enlace.addEventListener('click', () => establecerMenu(false));
+    });
+  }
 
   document.addEventListener('keydown', evento => {
     if (evento.key === 'Escape' && menu?.dataset.abierto === 'true') {

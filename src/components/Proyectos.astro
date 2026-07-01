@@ -81,8 +81,8 @@ const proyectos: Proyecto[] = [
                   decoding="async"
                   format="webp"
                   quality={75}
-                   widths={[proyecto.imagen.width]}
-                  sizes={`${proyecto.imagen.width}px`}
+                   widths={[400, 640, 832, 1088, proyecto.imagen.width]}
+                  sizes="(max-width: 480px) 400px, (max-width: 768px) 640px, (max-width: 1024px) 832px, (max-width: 1280px) 1088px, 1088px"
                />
               </figure>
             </div>
