@@ -98,4 +98,13 @@ address {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+
+  /* Refuerzo explícito para las pseudo-elements de Astro View Transitions
+     (Astro ya las desactiva, pero este override blinda contra cualquier
+     animation custom que se filtre). */
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation: none !important;
+  }
 }
