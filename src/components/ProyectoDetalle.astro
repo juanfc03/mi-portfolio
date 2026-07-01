@@ -69,7 +69,7 @@ const nombreTransicion = `proyecto-${id}`;
         </figure>
       </div>
 
-      <div class="md:col-span-5 order-2 space-y-8 md:pt-12">
+      <div class="md:col-span-5 order-2 space-y-8 md:pt-6">
         <h1
           class="font-headline-lg text-headline-sm sm:text-headline-md md:text-headline-lg text-primary"
           transition:name={`proyecto-${id}-titulo`}
@@ -124,10 +124,11 @@ const nombreTransicion = `proyecto-${id}`;
           style="--detalle-reveal-delay: 600ms"
           aria-hidden="true"
         >
-          <pre class="font-caption text-caption-xs md:text-caption-md lg:text-caption-lg text-on-surface-variant">
+          <pre
+            class="font-caption text-caption-xs md:text-caption-md lg:text-caption-lg text-on-surface-variant">
             <code>
               {(data.codigo ?? []).map((linea) => (
-                <span class="linea-typing" data-texto={linea}></span>
+                <span class="linea-typing" data-texto={linea} />
               ))}
             </code>
           </pre>
@@ -139,25 +140,39 @@ const nombreTransicion = `proyecto-${id}`;
   <div
     class="detalle-cuerpo px-margin-xs sm:px-margin-sm md:px-margin-md lg:px-margin-lg xl:px-margin-xl"
   >
-    <div class="max-w-container-max mx-auto py-section-y-sm sm:py-section-y-md grid grid-cols-1 md:grid-cols-12 gap-gutter-md lg:gap-gutter-xl">
+    <div
+      class="max-w-container-max mx-auto py-section-y-sm sm:py-section-y-md grid grid-cols-1 md:grid-cols-12 gap-gutter-md lg:gap-gutter-xl"
+    >
       <div class="md:col-span-8 detalle-contenido">
         <Content />
       </div>
-      <aside class="hidden md:block md:col-span-4" aria-label="Esquema del documento" data-sidebar>
+      <aside
+        class="hidden md:block md:col-span-4"
+        aria-label="Esquema del documento"
+        data-sidebar
+      >
         <div class="sticky top-32 space-y-6">
-          <p class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase text-on-surface-variant">Secciones</p>
+          <p
+            class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase text-on-surface-variant"
+          >
+            Secciones
+          </p>
           <nav>
             <ul class="space-y-4 border-l border-outline-variant pl-5">
-              {headings.filter(h => h.depth === 2).map((heading) => (
-                <li>
-                  <a
-                    href={`#${heading.slug}`}
-                    class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors block"
-                  >
-                    {heading.text}
-                  </a>
-                </li>
-              ))}
+              {
+                headings
+                  .filter(h => h.depth === 2)
+                  .map(heading => (
+                    <li>
+                      <a
+                        href={`#${heading.slug}`}
+                        class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors block"
+                      >
+                        {heading.text}
+                      </a>
+                    </li>
+                  ))
+              }
             </ul>
           </nav>
         </div>
