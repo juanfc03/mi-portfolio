@@ -1,7 +1,7 @@
 @import 'tailwindcss';
 
 @theme inline {
-  /* Font families - registered via Astro Fonts API CSS variables */
+  /* Familias tipográficas - registradas mediante variables CSS de la Astro Fonts API */
   --font-display-lg: var(--font-jetbrains-mono), monospace;
   --font-headline-lg: var(--font-jetbrains-mono), monospace;
   --font-body-large: var(--font-jetbrains-mono), monospace;
@@ -9,7 +9,7 @@
   --font-label-base: var(--font-jetbrains-mono), monospace;
   --font-caption: var(--font-jetbrains-mono), monospace;
 
-  /* Colors - Mono Archive palette (only tokens actually used by utility classes) */
+  /* Colores - paleta Mono Archive (solo los tokens que usan las clases utilitarias) */
   --color-primary: #000000;
   --color-on-primary: #ffffff;
 
@@ -22,7 +22,7 @@
   --color-outline: #747878;
   --color-outline-variant: #c4c7c7;
 
-  /* Spacing */
+  /* Espaciados */
   --spacing-gutter-xs: 20px;
   --spacing-gutter-sm: 22px;
   --spacing-gutter-md: 24px;
@@ -43,7 +43,7 @@
 
   --spacing-container-max: 1200px;
 
-  /* Font sizes - Mono Archive type scale (only used steps kept) */
+  /* Tamaños tipográficos - escala Mono Archive (solo los pasos utilizados) */
   --text-display-xs: 36px;
   --text-display-sm: 42px;
   --text-display-md: 48px;
@@ -71,23 +71,23 @@
   --text-caption-lg: 12px;
 }
 
-/* Scroll margin for fixed header */
+/* Margen de scroll para la cabecera fija */
 [id] {
   scroll-margin-top: 80px;
 }
 
-/* Address defaults to italic; restore upright for contact blocks. */
+/* <address> aplica cursiva por defecto; la restauramos para los bloques de contacto. */
 address {
   font-style: normal;
 }
 
-/* Visible focus indicator for keyboard navigation (WCAG 2.4.7) */
+/* Indicador visible de foco para navegación por teclado (WCAG 2.4.7) */
 :focus-visible {
   outline: 2px solid var(--color-primary);
   outline-offset: 2px;
 }
 
-/* Respect reduced motion preference */
+/* Respeta la preferencia de movimiento reducido */
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

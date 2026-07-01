@@ -1,5 +1,5 @@
 ---
-import { SITE } from '@/data/site';
+import { SITIO } from '@/data/sitio';
 ---
 
 <section
@@ -25,7 +25,7 @@ import { SITE } from '@/data/site';
         <address class="not-italic">
           <a
             class="font-headline-lg text-headline-xs sm:text-headline-sm md:text-headline-md text-primary hover:opacity-70 transition-opacity block break-all underline underline-offset-4"
-            href={`mailto:${SITE.email}`}>{SITE.email}</a
+            href={`mailto:${SITIO.correo}`}>{SITIO.correo}</a
           >
           <div class="mt-4">
             <p class="font-body-large text-body-large-xs sm:text-body-large-sm md:text-body-large-md lg:text-body-large-lg xl:text-body-large-xl text-on-surface-variant mb-2">
@@ -33,7 +33,7 @@ import { SITE } from '@/data/site';
             </p>
             <a
               class="font-headline-lg text-headline-xs sm:text-headline-sm md:text-headline-md text-primary hover:opacity-70 transition-opacity block underline underline-offset-4"
-              href={SITE.whatsappLink}>{SITE.phoneDisplay}</a
+              href={SITIO.enlaceWhatsapp}>{SITIO.telefonoVisible}</a
             >
           </div>
         </address>
@@ -44,7 +44,7 @@ import { SITE } from '@/data/site';
         data-netlify="true"
         netlify-honeypot="bot-field"
         class="space-y-8 max-w-2xl"
-        id="contact-form"
+        id="formulario-contacto"
       >
         <input type="hidden" name="form-name" value="contacto" />
         <p class="hidden">
@@ -55,11 +55,11 @@ import { SITE } from '@/data/site';
         <div class="relative">
           <label
             class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase text-on-surface-variant block mb-2"
-            for="name">Nombre</label
+            for="nombre">Nombre</label
           >
           <input
             class="w-full bg-transparent border-0 border-b border-outline-variant focus:border-primary focus:ring-0 px-2 py-3 font-body-large text-body-large-xs sm:text-body-large-sm md:text-body-large-md lg:text-body-large-lg xl:text-body-large-xl text-primary transition-colors"
-            id="name"
+            id="nombre"
             name="nombre"
             placeholder="Tu nombre"
             type="text"
@@ -70,11 +70,11 @@ import { SITE } from '@/data/site';
         <div class="relative">
           <label
             class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase text-on-surface-variant block mb-2"
-            for="email">Email</label
+            for="correo">Email</label
           >
           <input
             class="w-full bg-transparent border-0 border-b border-outline-variant focus:border-primary focus:ring-0 px-2 py-3 font-body-large text-body-large-xs sm:text-body-large-sm md:text-body-large-md lg:text-body-large-lg xl:text-body-large-xl text-primary transition-colors"
-            id="email"
+            id="correo"
             name="email"
             placeholder="tu@email.com"
             type="email"
@@ -85,11 +85,11 @@ import { SITE } from '@/data/site';
         <div class="relative">
           <label
             class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase text-on-surface-variant block mb-2"
-            for="message">Mensaje</label
+            for="mensaje">Mensaje</label
           >
           <textarea
             class="w-full bg-transparent border-0 border-b border-outline-variant focus:border-primary focus:ring-0 px-2 py-3 font-body-large text-body-large-xs sm:text-body-large-sm md:text-body-large-md lg:text-body-large-lg xl:text-body-large-xl text-primary transition-colors resize-none"
-            id="message"
+            id="mensaje"
             name="mensaje"
             placeholder="¿En qué puedo ayudarte?"
             rows="4"
@@ -106,16 +106,16 @@ import { SITE } from '@/data/site';
     </div>
   </div>
 
-  <!-- Toast notification -->
+  <!-- Notificación toast -->
   <div
-    id="toast"
+    id="notificacion"
     class="fixed top-24 right-4 z-50 flex items-center gap-3 px-6 py-4 opacity-0 pointer-events-none transition-all duration-300 ease-in-out translate-x-4"
     role="status"
     aria-live="polite"
     aria-atomic="true"
   >
     <svg
-      id="toast-icon"
+      id="icono-notificacion"
       class="size-5"
       aria-hidden="true"
       xmlns="http://www.w3.org/2000/svg"
@@ -125,65 +125,67 @@ import { SITE } from '@/data/site';
       stroke-width="2"
       stroke-linecap="round"
       stroke-linejoin="round"></svg>
-    <p id="toast-message" class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg"></p>
+    <p id="mensaje-notificacion" class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg"></p>
   </div>
 </section>
 
 <script>
-  const form = document.getElementById('contact-form') as HTMLFormElement;
-  const toast = document.getElementById('toast') as HTMLDivElement;
-  const toastIcon = document.querySelector<SVGSVGElement>('#toast-icon')!;
-  const toastMessage = document.getElementById(
-    'toast-message',
+  // Envío del formulario de contacto a Netlify Forms (POST url-encoded a `/`).
+  // Muestra una notificación toast durante 4 s con el resultado.
+  const formulario = document.getElementById('formulario-contacto') as HTMLFormElement;
+  const notificacion = document.getElementById('notificacion') as HTMLDivElement;
+  const iconoNotificacion = document.querySelector<SVGSVGElement>('#icono-notificacion')!;
+  const mensajeNotificacion = document.getElementById(
+    'mensaje-notificacion',
   ) as HTMLParagraphElement;
 
-  const iconPaths: Record<string, string> = {
-    success: '<polyline points="20 6 9 17 4 12"></polyline>',
+  const rutasIcono: Record<'exito' | 'error', string> = {
+    exito: '<polyline points="20 6 9 17 4 12"></polyline>',
     error:
       '<circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line>',
   };
 
-  function showToast(type: 'success' | 'error', message: string) {
-    toastIcon.innerHTML = iconPaths[type];
-    toastIcon.setAttribute('aria-hidden', 'true');
-    toastMessage.textContent = message;
+  function mostrarNotificacion(tipo: 'exito' | 'error', mensaje: string) {
+    iconoNotificacion.innerHTML = rutasIcono[tipo];
+    iconoNotificacion.setAttribute('aria-hidden', 'true');
+    mensajeNotificacion.textContent = mensaje;
 
-    toast.className = `fixed top-24 right-4 z-50 flex items-center gap-3 px-6 py-4 transition-all duration-300 ease-in-out ${
-      type === 'success' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
+    notificacion.className = `fixed top-24 right-4 z-50 flex items-center gap-3 px-6 py-4 transition-all duration-300 ease-in-out ${
+      tipo === 'exito' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
     } opacity-100 translate-x-0 pointer-events-auto`;
 
-    toast.setAttribute('role', type === 'error' ? 'alert' : 'status');
-    toast.setAttribute('aria-live', type === 'error' ? 'assertive' : 'polite');
+    notificacion.setAttribute('role', tipo === 'error' ? 'alert' : 'status');
+    notificacion.setAttribute('aria-live', tipo === 'error' ? 'assertive' : 'polite');
 
     setTimeout(() => {
-      toast.className =
+      notificacion.className =
         'fixed top-24 right-4 z-50 flex items-center gap-3 px-6 py-4 transition-all duration-300 ease-in-out opacity-0 translate-x-4 pointer-events-none';
     }, 4000);
   }
 
-  form?.addEventListener('submit', async e => {
-    e.preventDefault();
+  formulario?.addEventListener('submit', async evento => {
+    evento.preventDefault();
 
-    const formData = new FormData(form);
-    const body = new URLSearchParams(
-      Array.from(formData, ([key, value]) => [key, String(value)]),
+    const datosFormulario = new FormData(formulario);
+    const cuerpo = new URLSearchParams(
+      Array.from(datosFormulario, ([clave, valor]) => [clave, String(valor)]),
     ).toString();
 
     try {
-      const response = await fetch('/', {
+      const respuesta = await fetch('/', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body,
+        body: cuerpo,
       });
 
-      if (response.ok) {
-        showToast('success', '¡Mensaje enviado correctamente!');
-        form.reset();
+      if (respuesta.ok) {
+        mostrarNotificacion('exito', '¡Mensaje enviado correctamente!');
+        formulario.reset();
       } else {
-        showToast('error', 'Error al enviar el mensaje. Inténtalo de nuevo.');
+        mostrarNotificacion('error', 'Error al enviar el mensaje. Inténtalo de nuevo.');
       }
     } catch {
-      showToast('error', 'Error de conexión. Inténtalo de nuevo.');
+      mostrarNotificacion('error', 'Error de conexión. Inténtalo de nuevo.');
     }
   });
 </script>

@@ -49,30 +49,30 @@ const experiencias: Experiencia[] = [
     <div class="md:col-span-8">
       <div class="space-y-16">
         {
-          experiencias.map(exp => (
+          experiencias.map(experiencia => (
             <article class="border-t border-outline-variant pt-8">
               <header class="flex flex-col md:flex-row md:justify-between md:items-baseline mb-4 gap-2">
                 <div>
                   <h3 class="font-headline-lg text-headline-xs sm:text-headline-sm md:text-headline-md text-primary">
-                    {exp.empresa}
+                    {experiencia.empresa}
                   </h3>
                   <p class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant mt-1">
-                    {exp.puesto}
+                    {experiencia.puesto}
                   </p>
                 </div>
                 <div class="text-right">
                   <span class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase text-on-surface-variant block">
-                    <time datetime={exp.fechaInicio}>{formatFecha(exp.fechaInicio)}</time> — <time datetime={exp.fechaFin}>{formatFecha(exp.fechaFin)}</time> · {exp.duracion}
+                    <time datetime={experiencia.fechaInicio}>{formatFecha(experiencia.fechaInicio)}</time> — <time datetime={experiencia.fechaFin}>{formatFecha(experiencia.fechaFin)}</time> · {experiencia.duracion}
                   </span>
-                  {exp.ubicacion && (
+                  {experiencia.ubicacion && (
                     <address class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant mt-1 block not-italic">
-                      {exp.ubicacion}
+                      {experiencia.ubicacion}
                     </address>
                   )}
                 </div>
               </header>
               <p class="font-body-large text-body-large-xs sm:text-body-large-sm md:text-body-large-md lg:text-body-large-lg xl:text-body-large-xl text-on-surface-variant">
-                {exp.descripcion}
+                {experiencia.descripcion}
               </p>
             </article>
           ))

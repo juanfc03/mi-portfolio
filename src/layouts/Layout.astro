@@ -1,6 +1,8 @@
 ---
 import { Font } from 'astro:assets';
-import { SITE } from '@/data/site';
+import { SITIO } from '@/data/sitio';
+import Cabecera from '@/components/Cabecera.astro';
+import PiePagina from '@/components/PiePagina.astro';
 import '@/styles/global.css';
 
 interface Props {
@@ -9,23 +11,22 @@ interface Props {
 }
 
 const {
-  title = `${SITE.name} — ${SITE.role} | Desarrollo Web`,
-  description = 'Ingeniero informático full stack especializado en Laravel, Spring Boot, Astro y Tailwind. Disponible para nuevas oportunidades.',
+  title = `${SITIO.nombre} — ${SITIO.rol} | Desarrollo Web`,
+  description = SITIO.descripcion,
 } = Astro.props;
 
-const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const urlCanonica = new URL(Astro.url.pathname, Astro.site);
 
-const jsonLd = {
+const datosEstructurados = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  name: SITE.name,
-  url: SITE.url,
-  jobTitle: SITE.role,
-  description:
-    'Ingeniero informático recién graduado especializado en desarrollo web full stack.',
+  name: SITIO.nombre,
+  url: SITIO.url,
+  jobTitle: SITIO.rol,
+  description: SITIO.descripcionCorta,
   inLanguage: 'es-ES',
-  email: SITE.email,
-  telephone: SITE.phone,
+  email: SITIO.correo,
+  telephone: SITIO.telefono,
   knowsAbout: [
     'PHP',
     'Laravel',
@@ -40,7 +41,7 @@ const jsonLd = {
   ],
   alumniOf: {
     '@type': 'CollegeOrUniversity',
-    name: SITE.university,
+    name: SITIO.universidad,
   },
   homeLocation: {
     '@type': 'Place',
@@ -50,8 +51,8 @@ const jsonLd = {
       addressCountry: 'ES',
     },
   },
-  sameAs: [SITE.linkedin, SITE.github],
-  image: `${SITE.url}/og-image.png`,
+  sameAs: [SITIO.enlaceLinkedin, SITIO.enlaceGithub],
+  image: `${SITIO.url}/og-image.png`,
 };
 ---
 
@@ -65,56 +66,66 @@ const jsonLd = {
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
     <meta name="apple-mobile-web-app-title" content="Portfolio" />
-    <link rel="canonical" href={canonicalURL} />
+    <link rel="canonical" href={urlCanonica} />
     <meta name="generator" content={Astro.generator} />
     <meta name="description" content={description} />
     <meta name="robots" content="index, follow" />
-    <meta name="author" content={SITE.name} />
+    <meta name="author" content={SITIO.nombre} />
 
-    <!-- Open Graph -->
+    <!-- Open Graph (metaetiquetas sociales) -->
     <meta property="og:type" content="website" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
-    <meta property="og:url" content={canonicalURL} />
-    <meta property="og:image" content={`${SITE.url}/og-image.png`} />
+    <meta property="og:url" content={urlCanonica} />
+    <meta property="og:image" content={`${SITIO.url}/og-image.png`} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="es_ES" />
-    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:site_name" content={SITIO.nombre} />
 
-    <!-- Twitter Card -->
+    <!-- Twitter Card (metaetiquetas para Twitter / X) -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={`${SITE.url}/og-image.png`} />
+    <meta name="twitter:image" content={`${SITIO.url}/og-image.png`} />
 
     <Font cssVariable="--font-jetbrains-mono" preload />
     <title>{title}</title>
 
-    <!-- Structured Data (JSON-LD) -->
+    <!-- Datos estructurados (JSON-LD) -->
     <script
       is:inline
       type="application/ld+json"
-      set:html={JSON.stringify(jsonLd).replace(/</g, '\\u003c')}
+      set:html={JSON.stringify(datosEstructurados).replace(/</g, '\\u003c')}
     />
   </head>
   <body
     class="bg-surface text-on-surface antialiased selection:bg-primary selection:text-on-primary"
   >
-    <slot />
+    <a
+      href="#contenido-principal"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-100 focus:px-4 focus:py-2 focus:bg-primary focus:text-on-primary focus:font-bold"
+    >
+      Saltar al contenido principal
+    </a>
+    <Cabecera />
+    <main id="contenido-principal" class="pt-20">
+      <slot />
+    </main>
+    <PiePagina />
 
-    <!-- Defer PWA manifest fetch out of the critical render path. -->
+    <!-- Aplazar la carga del manifest PWA fuera de la ruta crítica de renderizado. -->
     <script is:inline>
-      const injectManifest = () => {
-        const link = document.createElement('link');
-        link.rel = 'manifest';
-        link.href = '/site.webmanifest';
-        document.head.appendChild(link);
+      const inyectarManifest = () => {
+        const enlace = document.createElement('link');
+        enlace.rel = 'manifest';
+        enlace.href = '/site.webmanifest';
+        document.head.appendChild(enlace);
       };
       if ('requestIdleCallback' in window) {
-        requestIdleCallback(injectManifest);
+        requestIdleCallback(inyectarManifest);
       } else {
-        addEventListener('load', injectManifest);
+        addEventListener('load', inyectarManifest);
       }
     </script>
   </body>

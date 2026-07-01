@@ -32,7 +32,7 @@ src/
 │   ├── Contacto.astro        # <address> + formulario Netlify Forms
 │   └── PiePagina.astro       # Copyright + redes sociales
 ├── data/
-│   └── site.ts        # Única fuente de verdad (name, url, email, social, etc.)
+│   └── sitio.ts        # Única fuente de verdad (nombre, rol, correo, redes, etc.)
 ├── layouts/
 │   └── Layout.astro   # <head>, meta, JSON-LD Person, manifest deferral
 ├── pages/
