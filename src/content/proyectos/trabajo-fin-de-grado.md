@@ -10,6 +10,14 @@ imagen: '../../assets/proyecto-tfg.png'
 imagenAlt: 'Plataforma de venta de coches con asistente IA'
 imagenIzquierda: true
 orden: 1
+codigo:
+  - 'class Asistente extends Servicio'
+  - '  public function responder(Consulta $c): Respuesta'
+  - '    return $this->modelo->completar('
+  - '      prompt: $this->construirContexto($c),'
+  - '    );'
+  - '  }'
+  - '}'
 ---
 
 ## Origen

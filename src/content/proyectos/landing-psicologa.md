@@ -9,6 +9,15 @@ imagen: '../../assets/proyecto-rosa.png'
 imagenAlt: 'Página web de psicóloga profesional'
 imagenIzquierda: false
 orden: 2
+codigo:
+  - '<section class="testimonios">'
+  - '  {testimonios.map(({ nombre, texto }) => ('
+  - '    <blockquote>'
+  - '      <p>{texto}</p>'
+  - '      <cite>— {nombre}</cite>'
+  - '    </blockquote>'
+  - '  ))}'
+  - '</section>'
 ---
 
 ## El encargo

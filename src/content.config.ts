@@ -15,6 +15,7 @@ const proyectos = defineCollection({
       imagenAlt: z.string(),
       imagenIzquierda: z.boolean(),
       orden: z.number(),
+      codigo: z.array(z.string()).optional(),
     }),
 });
 

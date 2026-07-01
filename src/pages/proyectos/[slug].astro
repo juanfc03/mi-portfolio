@@ -13,12 +13,12 @@ export const getStaticPaths = (async () => {
 }) satisfies GetStaticPaths;
 
 const { proyecto } = Astro.props;
-const { Content } = await render(proyecto);
+const { Content, headings } = await render(proyecto);
 ---
 
 <Layout
   title={`${proyecto.data.titulo} — Proyectos | Juan Fernández Ceacero`}
   description={proyecto.data.descripcion}
 >
-  <ProyectoDetalle proyecto={proyecto} Content={Content} />
+  <ProyectoDetalle proyecto={proyecto} Content={Content} headings={headings} />
 </Layout>

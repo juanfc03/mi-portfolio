@@ -4,12 +4,15 @@ import type { CollectionEntry } from 'astro:content';
 import type { AstroComponentFactory } from 'astro/runtime/server/index.js';
 import '@/styles/proyecto-detalle.css';
 
+import type { MarkdownHeading } from 'astro';
+
 interface Props {
   proyecto: CollectionEntry<'proyectos'>;
   Content: AstroComponentFactory;
+  headings: MarkdownHeading[];
 }
 
-const { proyecto, Content } = Astro.props;
+const { proyecto, Content, headings } = Astro.props;
 const { id, data } = proyecto;
 const nombreTransicion = `proyecto-${id}`;
 ---
@@ -116,22 +119,65 @@ const nombreTransicion = `proyecto-${id}`;
             Repositorio
           </a>
         </div>
+        <div
+          class="codigo-bloque detalle-reveal"
+          style="--detalle-reveal-delay: 600ms"
+          aria-hidden="true"
+        >
+          <pre class="font-caption text-caption-xs md:text-caption-md lg:text-caption-lg text-on-surface-variant">
+            <code>
+              {(data.codigo ?? []).map((linea) => (
+                <span class="linea-typing" data-texto={linea}></span>
+              ))}
+            </code>
+          </pre>
+        </div>
       </div>
     </div>
   </div>
 
   <div
-    class="detalle-contenido px-margin-xs sm:px-margin-sm md:px-margin-md lg:px-margin-lg xl:px-margin-xl"
+    class="detalle-cuerpo px-margin-xs sm:px-margin-sm md:px-margin-md lg:px-margin-lg xl:px-margin-xl"
   >
-    <div class="max-w-3xl mx-auto py-section-y-sm sm:py-section-y-md">
-      <Content />
+    <div class="max-w-container-max mx-auto py-section-y-sm sm:py-section-y-md grid grid-cols-1 md:grid-cols-12 gap-gutter-md lg:gap-gutter-xl">
+      <div class="md:col-span-8 detalle-contenido">
+        <Content />
+      </div>
+      <aside class="hidden md:block md:col-span-4" aria-label="Esquema del documento" data-sidebar>
+        <div class="sticky top-32 space-y-6">
+          <p class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase text-on-surface-variant">Secciones</p>
+          <nav>
+            <ul class="space-y-4 border-l border-outline-variant pl-5">
+              {headings.filter(h => h.depth === 2).map((heading) => (
+                <li>
+                  <a
+                    href={`#${heading.slug}`}
+                    class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors block"
+                  >
+                    {heading.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        </div>
+      </aside>
     </div>
   </div>
 </article>
 
 <script>
   import { inicializarVolverDetalle } from '@/scripts/volver-detalle';
+  import { inicializarRevelarDetalle } from '@/scripts/revelar-detalle';
+  import { inicializarTypingCodigo } from '@/scripts/typing-codigo';
+  import { inicializarNavegacionSidebar } from '@/scripts/navegacion-sidebar';
   import '@/scripts/restauracion-scroll';
   inicializarVolverDetalle();
   document.addEventListener('astro:page-load', inicializarVolverDetalle);
+  inicializarRevelarDetalle();
+  document.addEventListener('astro:page-load', inicializarRevelarDetalle);
+  inicializarTypingCodigo();
+  document.addEventListener('astro:page-load', inicializarTypingCodigo);
+  inicializarNavegacionSidebar();
+  document.addEventListener('astro:page-load', inicializarNavegacionSidebar);
 </script>

@@ -9,6 +9,15 @@ imagen: '../../assets/proyecto-kardia.png'
 imagenAlt: 'Landing page de centro de formación profesional'
 imagenIzquierda: true
 orden: 3
+codigo:
+  - '<form name="preinscripcion" data-netlify="true">'
+  - '  <input type="text" name="nombre" required />'
+  - '  <select name="curso">'
+  - '    {cursos.map(c => ('
+  - '      <option value={c.slug}>{c.titulo}</option>'
+  - '    ))}'
+  - '  </select>'
+  - '</form>'
 ---
 
 ## El proyecto
