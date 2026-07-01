@@ -36,7 +36,7 @@ import { formatFecha } from '@/utils/formato-fecha';
                     <time datetime={experiencia.fechaInicio}>{formatFecha(experiencia.fechaInicio)}</time> — <time datetime={experiencia.fechaFin}>{formatFecha(experiencia.fechaFin)}</time> · {experiencia.duracion}
                   </span>
                   {experiencia.ubicacion && (
-                    <address class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant mt-1 block not-italic">
+                    <address class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant mt-1 block">
                       {experiencia.ubicacion}
                     </address>
                   )}

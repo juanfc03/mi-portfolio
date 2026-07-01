@@ -35,7 +35,9 @@
 }
 
 @keyframes cursor-parpadeo {
-  50% { visibility: hidden; }
+  50% {
+    visibility: hidden;
+  }
 }
 
 .detalle-contenido h2 {
@@ -87,6 +89,10 @@
   }
 }
 
+.detalle-cuerpo {
+  overflow-x: hidden;
+}
+
 .detalle-cuerpo .js-detalle-reveal {
   opacity: 0;
   transform: translateX(48px);
@@ -101,16 +107,3 @@
   transform: translateX(0);
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .detalle-reveal {
-    animation: none;
-    opacity: 1;
-    transform: none;
-  }
-
-  .detalle-contenido .js-detalle-reveal {
-    transition: none;
-    opacity: 1;
-    transform: none;
-  }
-}

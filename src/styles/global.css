@@ -19,7 +19,6 @@
   --color-surface-bright: #f5f3f3;
   --color-surface-variant: #e4e2e2;
 
-  --color-outline: #747878;
   --color-outline-variant: #c4c7c7;
 
   /* Espaciados */
@@ -51,6 +50,7 @@
   --text-headline-xs: 24px;
   --text-headline-sm: 28px;
   --text-headline-md: 32px;
+  --text-headline-lg: 36px;
 
   --text-body-large-xs: 16px;
   --text-body-large-sm: 17px;
