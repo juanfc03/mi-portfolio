@@ -40,7 +40,7 @@
 
 .detalle-contenido h2 {
   font-family: var(--font-headline-lg);
-  font-size: var(--text-headline-sm);
+  font-size: var(--text-headline-xs);
   color: var(--color-primary);
   margin-top: 2.5rem;
   margin-bottom: 1rem;
@@ -51,7 +51,7 @@
 }
 .detalle-contenido p {
   font-family: var(--font-body-large);
-  font-size: var(--text-body-large-md);
+  font-size: var(--text-body-large-xs);
   color: var(--color-on-surface-variant);
   line-height: 1.7;
   margin-bottom: 1rem;
@@ -59,6 +59,7 @@
 .detalle-contenido ul,
 .detalle-contenido ol {
   margin: 1rem 0 1rem 1.5rem;
+  font-size: var(--text-body-large-xs);
   color: var(--color-on-surface-variant);
 }
 .detalle-contenido li {
@@ -73,6 +74,17 @@
   font-family: var(--font-jetbrains-mono);
   background: var(--color-surface-variant);
   padding: 0.1em 0.3em;
+}
+
+@media (min-width: 768px) {
+  .detalle-contenido h2 {
+    font-size: var(--text-headline-sm);
+  }
+  .detalle-contenido p,
+  .detalle-contenido ul,
+  .detalle-contenido ol {
+    font-size: var(--text-body-large-md);
+  }
 }
 
 .detalle-cuerpo .js-detalle-reveal {
