@@ -1,8 +1,11 @@
 // @ts-check
 import { defineConfig, fontProviders } from 'astro/config';
 import { fileURLToPath } from 'url';
+import { EventEmitter } from 'events';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+
+EventEmitter.defaultMaxListeners = 20;
 
 // https://astro.build/config
 export default defineConfig({
@@ -12,15 +15,7 @@ export default defineConfig({
     inlineStylesheets: 'always',
   },
   vite: {
-    plugins: [
-      tailwindcss(),
-      {
-        name: 'increase-max-listeners',
-        configureServer(server) {
-          server.httpServer?.setMaxListeners(20);
-        },
-      },
-    ],
+    plugins: [tailwindcss()],
     resolve: {
       alias: {
         '@': fileURLToPath(new URL('./src', import.meta.url)),
