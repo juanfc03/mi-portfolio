@@ -24,7 +24,7 @@ codigo:
 
 Kardia Formación necesitaba una web institucional que presentara su catálogo
 de cursos, facilitase la preinscripción y reflejara la seriedad de un centro
-con años de trayectoria.
+formativo.
 
 ## Estática y rápida
 
@@ -36,10 +36,9 @@ categorías.
 
 ## Accesibilidad
 
-Se siguieron las pautas **WCAG 2.2** desde el inicio: contraste suficiente,
-navegación por teclado y etiquetas ARIA en componentes interactivos. La web se
-validó con lectores de pantalla y herramientas automáticas antes de cada
-despliegue.
+Se siguieron las pautas **WCAG 2.2** desde el inicio: contraste suficiente y
+navegación por teclado. La web se validó con lectores de pantalla y
+herramientas automáticas antes de cada despliegue.
 
 ## Formularios sin servidor
 
