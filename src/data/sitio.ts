@@ -16,6 +16,7 @@ export interface Sitio {
   readonly universidad: string;
   readonly descripcion: string;
   readonly descripcionCorta: string;
+  readonly knowsAbout: readonly string[];
 }
 
 /**
@@ -23,7 +24,7 @@ export interface Sitio {
  * Consumida por Layout.astro, Contacto.astro, Proyectos.astro y PiePagina.astro.
  * No hardcodear estos valores en componentes ni en el JSON-LD.
  */
-export const SITIO: Sitio = {
+export const SITIO = {
   nombre: 'Juan Fernández Ceacero',
   rol: 'Ingeniero Informático',
   url: 'https://juanfc03.netlify.app',
@@ -38,4 +39,16 @@ export const SITIO: Sitio = {
     'Ingeniero informático full stack especializado en Laravel, Spring Boot, Astro y Tailwind. Disponible para nuevas oportunidades.',
   descripcionCorta:
     'Ingeniero informático recién graduado especializado en desarrollo web full stack.',
-} as const;
+  knowsAbout: [
+    'PHP',
+    'Laravel',
+    'JavaScript',
+    'TypeScript',
+    'Java',
+    'Spring Boot',
+    'Astro',
+    'Tailwind CSS',
+    'PostgreSQL',
+    'MySQL',
+  ],
+} as const satisfies Sitio;

@@ -16,3 +16,9 @@ import Contacto from '@/components/Contacto.astro';
   <Tecnologias />
   <Contacto />
 </Layout>
+
+<script>
+  import { inicializarRevelarScroll } from '@/scripts/revelar-scroll';
+  inicializarRevelarScroll();
+  document.addEventListener('astro:page-load', inicializarRevelarScroll);
+</script>

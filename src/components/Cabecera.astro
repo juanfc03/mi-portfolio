@@ -1,3 +1,15 @@
+---
+const SECCIONES_NAV = [
+  { label: 'Sobre mí', href: '/#sobre-mi' },
+  { label: 'Experiencia', href: '/#experiencia' },
+  { label: 'Proyectos', href: '/#proyectos' },
+  { label: 'Tecnologías', href: '/#tecnologias' },
+];
+
+const claseEnlace =
+  'font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors';
+---
+
 <nav
   aria-label="Navegación principal"
   class="fixed top-0 w-full z-50 bg-surface/90 backdrop-blur-sm border-b border-outline-variant transition-colors duration-300 ease-in-out"
@@ -6,34 +18,15 @@
     class="flex justify-between items-center h-20 px-margin-xs sm:px-margin-sm md:px-margin-md lg:px-margin-lg xl:px-margin-xl max-w-container-max mx-auto"
   >
     <ul class="nav-escritorio hidden md:flex items-center gap-8">
-      <li>
-        <a
-          class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors"
-          href="#sobre-mi">Sobre mí</a
-        >
-      </li>
-      <li>
-        <a
-          class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors"
-          href="#experiencia">Experiencia</a
-        >
-      </li>
-      <li>
-        <a
-          class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors"
-          href="#proyectos">Proyectos</a
-        >
-      </li>
-      <li>
-        <a
-          class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors"
-          href="#tecnologias">Tecnologías</a
-        >
-      </li>
+      {SECCIONES_NAV.map(({ label, href }) => (
+        <li>
+          <a class={claseEnlace} href={href}>{label}</a>
+        </li>
+      ))}
     </ul>
     <a
       class="hidden md:inline-flex font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase bg-primary text-on-primary px-6 py-3 hover:bg-surface hover:text-primary border border-primary transition-colors"
-      href="#contacto">Contáctame</a
+      href="/#contacto">Contáctame</a
     >
     <!-- Botón del menú móvil -->
     <button
@@ -82,34 +75,15 @@
     <ul
       class="px-margin-xs sm:px-margin-sm md:px-margin-md lg:px-margin-lg xl:px-margin-xl pb-6 flex flex-col gap-4"
     >
-      <li class="border-b border-outline-variant">
-        <a
-          class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors pb-2 block"
-          href="#sobre-mi">Sobre mí</a
-        >
-      </li>
-      <li class="border-b border-outline-variant">
-        <a
-          class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors pb-2 block"
-          href="#experiencia">Experiencia</a
-        >
-      </li>
-      <li class="border-b border-outline-variant">
-        <a
-          class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors pb-2 block"
-          href="#proyectos">Proyectos</a
-        >
-      </li>
-      <li class="border-b border-outline-variant">
-        <a
-          class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg text-on-surface-variant hover:text-primary transition-colors pb-2 block"
-          href="#tecnologias">Tecnologías</a
-        >
-      </li>
+      {SECCIONES_NAV.map(({ label, href }) => (
+        <li class="border-b border-outline-variant">
+          <a class={`${claseEnlace} pb-2 block`} href={href}>{label}</a>
+        </li>
+      ))}
       <li class="mt-2">
         <a
           class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase bg-primary text-on-primary px-6 py-3 text-center hover:bg-surface hover:text-primary border border-primary transition-colors block w-full"
-          href="#contacto">Contáctame</a
+          href="/#contacto">Contáctame</a
         >
       </li>
     </ul>
@@ -147,54 +121,7 @@
 </style>
 
 <script>
-  // Control del menú móvil: alterna visibilidad, iconos, atributos ARIA
-  // y cierra al pulsar un enlace o la tecla Escape.
-  // Se re-inicializa en cada navegación SPA (astro:page-load) porque los
-  // listeners绑 sobre el DOM antiguo se pierden tras la swap de ClientRouter.
-  const inicializarMenuMovil = () => {
-    const botonAlternar = document.getElementById('alternar-menu');
-    const menu = document.getElementById('menu-movil');
-    const iconoMenu = document.getElementById('icono-menu');
-    const iconoCerrar = document.getElementById('icono-cerrar');
-    if (!botonAlternar || !menu || !iconoMenu || !iconoCerrar) return;
-
-    if (botonAlternar.dataset.inicializado === 'true') return;
-    botonAlternar.dataset.inicializado = 'true';
-
-    const establecerMenu = (abierto: boolean, enfocarPrimerEnlace = false) => {
-      menu.dataset.abierto = abierto ? 'true' : 'false';
-      menu.inert = !abierto;
-      iconoMenu.classList.toggle('hidden', abierto);
-      iconoCerrar.classList.toggle('hidden', !abierto);
-      botonAlternar.setAttribute('aria-expanded', abierto ? 'true' : 'false');
-      botonAlternar.setAttribute(
-        'aria-label',
-        abierto ? 'Cerrar menú de navegación' : 'Abrir menú de navegación',
-      );
-
-      if (abierto && enfocarPrimerEnlace) {
-        const primerEnlace = menu.querySelector<HTMLAnchorElement>('a');
-        primerEnlace?.focus();
-      }
-    };
-
-    botonAlternar.addEventListener('click', () => {
-      const seAbrira = menu.dataset.abierto !== 'true';
-      establecerMenu(seAbrira, seAbrira);
-    });
-
-    menu.querySelectorAll('a').forEach(enlace => {
-      enlace.addEventListener('click', () => establecerMenu(false));
-    });
-
-    document.addEventListener('keydown', evento => {
-      if (evento.key === 'Escape' && menu.dataset.abierto === 'true') {
-        establecerMenu(false);
-        botonAlternar.focus();
-      }
-    });
-  };
-
+  import { inicializarMenuMovil } from '@/scripts/menu-movil';
   inicializarMenuMovil();
   document.addEventListener('astro:page-load', inicializarMenuMovil);
   document.addEventListener('astro:after-swap', inicializarMenuMovil);

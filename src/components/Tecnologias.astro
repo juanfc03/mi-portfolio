@@ -1,27 +1,5 @@
 ---
-interface CategoriaTecnologia {
-  nombre: string;
-  tecnologias: string[];
-}
-
-const categorias: CategoriaTecnologia[] = [
-  {
-    nombre: 'Lenguajes',
-    tecnologias: ['PHP', 'Java', 'JavaScript / TypeScript'],
-  },
-  {
-    nombre: 'Backend',
-    tecnologias: ['Laravel', 'Livewire', 'Spring Boot', 'PostgreSQL', 'MySQL'],
-  },
-  {
-    nombre: 'Frontend',
-    tecnologias: ['Astro', 'Tailwind CSS', 'Livewire'],
-  },
-  {
-    nombre: 'Herramientas',
-    tecnologias: ['Git', 'Agentes de IA'],
-  },
-];
+import { categorias } from '@/data/tecnologias';
 ---
 
 <section

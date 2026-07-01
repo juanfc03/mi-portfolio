@@ -28,18 +28,7 @@ const datosEstructurados = {
   inLanguage: 'es-ES',
   email: SITIO.correo,
   telephone: SITIO.telefono,
-  knowsAbout: [
-    'PHP',
-    'Laravel',
-    'JavaScript',
-    'TypeScript',
-    'Java',
-    'Spring Boot',
-    'Astro',
-    'Tailwind CSS',
-    'PostgreSQL',
-    'MySQL',
-  ],
+  knowsAbout: SITIO.knowsAbout,
   alumniOf: {
     '@type': 'CollegeOrUniversity',
     name: SITIO.universidad,
@@ -116,36 +105,12 @@ const datosEstructurados = {
     </main>
     <PiePagina transition:persist="pie-pagina" />
 
-    <!-- Aplazar la carga del manifest PWA fuera de la ruta crítica de renderizado. -->
-    <script is:inline>
-      const inyectarManifest = () => {
-        if (document.querySelector('link[rel="manifest"]')) return;
-        const enlace = document.createElement('link');
-        enlace.rel = 'manifest';
-        enlace.href = '/site.webmanifest';
-        document.head.appendChild(enlace);
-      };
-      const alCargar = () => {
-        if ('requestIdleCallback' in window) {
-          requestIdleCallback(inyectarManifest);
-        } else {
-          setTimeout(inyectarManifest, 0);
-        }
-      };
-      alCargar();
-      document.addEventListener('astro:page-load', alCargar);
-
-      // Guardar la ruta anterior en cada navegación SPA para que el botón
-      // "Volver" del detalle pueda distinguir entre "el usuario llegó desde
-      // la home vía SPA" (history.back funciona) y "el usuario entró directo
-      // a esta URL" (hay que navegar a / explícitamente). document.referrer
-      // NO se actualiza con pushState, por eso necesitamos esto.
-      document.addEventListener('astro:before-preparation', event => {
-        try {
-          const desde = event?.from?.pathname;
-          if (desde) sessionStorage.setItem('jfc-ultima-ruta', desde);
-        } catch {}
-      });
-    </script>
   </body>
 </html>
+
+<script>
+  import { inicializarManifestPwa } from '@/scripts/manifest-pwa';
+  import '@/scripts/rastreo-rutas';
+  inicializarManifestPwa();
+  document.addEventListener('astro:page-load', inicializarManifestPwa);
+</script>
