@@ -88,6 +88,24 @@ address {
   outline-offset: 2px;
 }
 
+/* Reveal-on-scroll: el estado oculto (.js-reveal) se aplica únicamente
+   con JavaScript, de modo que el contenido sigue siendo accesible sin
+   scripts. La transición queda neutralizada para usuarios que prefieren
+   movimiento reducido por la regla global de prefers-reduced-motion. */
+.js-reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 600ms ease-out,
+    transform 600ms ease-out;
+  will-change: opacity, transform;
+}
+
+.js-reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
 /* Respeta la preferencia de movimiento reducido */
 @media (prefers-reduced-motion: reduce) {
   *,
