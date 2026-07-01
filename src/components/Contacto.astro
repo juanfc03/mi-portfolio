@@ -132,60 +132,86 @@ import { SITIO } from '@/data/sitio';
 <script>
   // Envío del formulario de contacto a Netlify Forms (POST url-encoded a `/`).
   // Muestra una notificación toast durante 4 s con el resultado.
-  const formulario = document.getElementById('formulario-contacto') as HTMLFormElement;
-  const notificacion = document.getElementById('notificacion') as HTMLDivElement;
-  const iconoNotificacion = document.querySelector<SVGSVGElement>('#icono-notificacion')!;
-  const mensajeNotificacion = document.getElementById(
-    'mensaje-notificacion',
-  ) as HTMLParagraphElement;
+  // Se reinicializa en cada navegación SPA para que el listener se una al
+  // nuevo <form> tras la swap de ClientRouter.
+  const inicializarFormulario = () => {
+    const formulario = document.getElementById(
+      'formulario-contacto',
+    ) as HTMLFormElement | null;
+    if (!formulario) return;
+    if (formulario.dataset.inicializado === 'true') return;
+    formulario.dataset.inicializado = 'true';
 
-  const rutasIcono: Record<'exito' | 'error', string> = {
-    exito: '<polyline points="20 6 9 17 4 12"></polyline>',
-    error:
-      '<circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line>',
+    const notificacion = document.getElementById('notificacion') as HTMLDivElement | null;
+    const iconoNotificacion = document.querySelector<SVGSVGElement>(
+      '#icono-notificacion',
+    );
+    const mensajeNotificacion = document.getElementById(
+      'mensaje-notificacion',
+    ) as HTMLParagraphElement | null;
+    if (!notificacion || !iconoNotificacion || !mensajeNotificacion) return;
+
+    const rutasIcono: Record<'exito' | 'error', string> = {
+      exito: '<polyline points="20 6 9 17 4 12"></polyline>',
+      error:
+        '<circle cx="12" cy="12" r="10"></circle><line x1="15" y1="9" x2="9" y2="15"></line><line x1="9" y1="9" x2="15" y2="15"></line>',
+    };
+
+    let temporizadorNotificacion: ReturnType<typeof setTimeout> | null = null;
+
+    function mostrarNotificacion(tipo: 'exito' | 'error', mensaje: string) {
+      iconoNotificacion!.innerHTML = rutasIcono[tipo];
+      iconoNotificacion!.setAttribute('aria-hidden', 'true');
+      mensajeNotificacion!.textContent = mensaje;
+
+      notificacion!.className = `fixed top-24 right-4 z-50 flex items-center gap-3 px-6 py-4 transition-all duration-300 ease-in-out ${
+        tipo === 'exito' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
+      } opacity-100 translate-x-0 pointer-events-auto`;
+
+      notificacion!.setAttribute('role', tipo === 'error' ? 'alert' : 'status');
+      notificacion!.setAttribute(
+        'aria-live',
+        tipo === 'error' ? 'assertive' : 'polite',
+      );
+
+      if (temporizadorNotificacion) clearTimeout(temporizadorNotificacion);
+      temporizadorNotificacion = setTimeout(() => {
+        notificacion!.className =
+          'fixed top-24 right-4 z-50 flex items-center gap-3 px-6 py-4 transition-all duration-300 ease-in-out opacity-0 translate-x-4 pointer-events-none';
+      }, 4000);
+    }
+
+    formulario.addEventListener('submit', async evento => {
+      evento.preventDefault();
+
+      const datosFormulario = new FormData(formulario);
+      const cuerpo = new URLSearchParams(
+        Array.from(datosFormulario, ([clave, valor]) => [clave, String(valor)]),
+      ).toString();
+
+      try {
+        const respuesta = await fetch('/', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: cuerpo,
+        });
+
+        if (respuesta.ok) {
+          mostrarNotificacion('exito', '¡Mensaje enviado correctamente!');
+          formulario.reset();
+        } else {
+          mostrarNotificacion(
+            'error',
+            'Error al enviar el mensaje. Inténtalo de nuevo.',
+          );
+        }
+      } catch {
+        mostrarNotificacion('error', 'Error de conexión. Inténtalo de nuevo.');
+      }
+    });
   };
 
-  function mostrarNotificacion(tipo: 'exito' | 'error', mensaje: string) {
-    iconoNotificacion.innerHTML = rutasIcono[tipo];
-    iconoNotificacion.setAttribute('aria-hidden', 'true');
-    mensajeNotificacion.textContent = mensaje;
-
-    notificacion.className = `fixed top-24 right-4 z-50 flex items-center gap-3 px-6 py-4 transition-all duration-300 ease-in-out ${
-      tipo === 'exito' ? 'bg-green-600 text-white' : 'bg-red-600 text-white'
-    } opacity-100 translate-x-0 pointer-events-auto`;
-
-    notificacion.setAttribute('role', tipo === 'error' ? 'alert' : 'status');
-    notificacion.setAttribute('aria-live', tipo === 'error' ? 'assertive' : 'polite');
-
-    setTimeout(() => {
-      notificacion.className =
-        'fixed top-24 right-4 z-50 flex items-center gap-3 px-6 py-4 transition-all duration-300 ease-in-out opacity-0 translate-x-4 pointer-events-none';
-    }, 4000);
-  }
-
-  formulario?.addEventListener('submit', async evento => {
-    evento.preventDefault();
-
-    const datosFormulario = new FormData(formulario);
-    const cuerpo = new URLSearchParams(
-      Array.from(datosFormulario, ([clave, valor]) => [clave, String(valor)]),
-    ).toString();
-
-    try {
-      const respuesta = await fetch('/', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: cuerpo,
-      });
-
-      if (respuesta.ok) {
-        mostrarNotificacion('exito', '¡Mensaje enviado correctamente!');
-        formulario.reset();
-      } else {
-        mostrarNotificacion('error', 'Error al enviar el mensaje. Inténtalo de nuevo.');
-      }
-    } catch {
-      mostrarNotificacion('error', 'Error de conexión. Inténtalo de nuevo.');
-    }
-  });
+  inicializarFormulario();
+  document.addEventListener('astro:page-load', inicializarFormulario);
+  document.addEventListener('astro:after-swap', inicializarFormulario);
 </script>

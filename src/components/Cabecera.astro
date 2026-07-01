@@ -149,44 +149,53 @@
 <script>
   // Control del menú móvil: alterna visibilidad, iconos, atributos ARIA
   // y cierra al pulsar un enlace o la tecla Escape.
-  const botonAlternar = document.getElementById('alternar-menu');
-  const menu = document.getElementById('menu-movil');
-  const iconoMenu = document.getElementById('icono-menu');
-  const iconoCerrar = document.getElementById('icono-cerrar');
-
-  function establecerMenu(abierto: boolean, enfocarPrimerEnlace = false) {
+  // Se re-inicializa en cada navegación SPA (astro:page-load) porque los
+  // listeners绑 sobre el DOM antiguo se pierden tras la swap de ClientRouter.
+  const inicializarMenuMovil = () => {
+    const botonAlternar = document.getElementById('alternar-menu');
+    const menu = document.getElementById('menu-movil');
+    const iconoMenu = document.getElementById('icono-menu');
+    const iconoCerrar = document.getElementById('icono-cerrar');
     if (!botonAlternar || !menu || !iconoMenu || !iconoCerrar) return;
-    menu.dataset.abierto = abierto ? 'true' : 'false';
-    menu.inert = !abierto;
-    iconoMenu.classList.toggle('hidden', abierto);
-    iconoCerrar.classList.toggle('hidden', !abierto);
-    botonAlternar.setAttribute('aria-expanded', abierto ? 'true' : 'false');
-    botonAlternar.setAttribute(
-      'aria-label',
-      abierto ? 'Cerrar menú de navegación' : 'Abrir menú de navegación',
-    );
 
-    if (abierto && enfocarPrimerEnlace) {
-      const primerEnlace = menu.querySelector<HTMLAnchorElement>('a');
-      primerEnlace?.focus();
-    }
-  }
+    if (botonAlternar.dataset.inicializado === 'true') return;
+    botonAlternar.dataset.inicializado = 'true';
 
-  botonAlternar?.addEventListener('click', () => {
-    const seAbrira = menu?.dataset.abierto !== 'true';
-    establecerMenu(seAbrira, seAbrira);
-  });
+    const establecerMenu = (abierto: boolean, enfocarPrimerEnlace = false) => {
+      menu.dataset.abierto = abierto ? 'true' : 'false';
+      menu.inert = !abierto;
+      iconoMenu.classList.toggle('hidden', abierto);
+      iconoCerrar.classList.toggle('hidden', !abierto);
+      botonAlternar.setAttribute('aria-expanded', abierto ? 'true' : 'false');
+      botonAlternar.setAttribute(
+        'aria-label',
+        abierto ? 'Cerrar menú de navegación' : 'Abrir menú de navegación',
+      );
 
-  if (menu) {
+      if (abierto && enfocarPrimerEnlace) {
+        const primerEnlace = menu.querySelector<HTMLAnchorElement>('a');
+        primerEnlace?.focus();
+      }
+    };
+
+    botonAlternar.addEventListener('click', () => {
+      const seAbrira = menu.dataset.abierto !== 'true';
+      establecerMenu(seAbrira, seAbrira);
+    });
+
     menu.querySelectorAll('a').forEach(enlace => {
       enlace.addEventListener('click', () => establecerMenu(false));
     });
-  }
 
-  document.addEventListener('keydown', evento => {
-    if (evento.key === 'Escape' && menu?.dataset.abierto === 'true') {
-      establecerMenu(false);
-      botonAlternar?.focus();
-    }
-  });
+    document.addEventListener('keydown', evento => {
+      if (evento.key === 'Escape' && menu.dataset.abierto === 'true') {
+        establecerMenu(false);
+        botonAlternar.focus();
+      }
+    });
+  };
+
+  inicializarMenuMovil();
+  document.addEventListener('astro:page-load', inicializarMenuMovil);
+  document.addEventListener('astro:after-swap', inicializarMenuMovil);
 </script>
