@@ -7,7 +7,7 @@ const RUTAS_ICONO: Readonly<Record<NotificacionTipo, string>> = {
 };
 
 const CLASES_BASE_NOTIFICACION =
-  'fixed top-24 right-4 z-50 flex items-center gap-3 px-6 py-4 transition-all duration-300 ease-in-out';
+  'fixed top-4 right-4 z-100 flex items-center gap-3 px-6 py-4 transition-all duration-300 ease-in-out';
 
 let temporizadorNotificacion: ReturnType<typeof setTimeout> | null = null;
 
@@ -22,7 +22,8 @@ const mostrarNotificacion = (
   iconoNotificacion.setAttribute('aria-hidden', 'true');
   mensajeNotificacion.textContent = mensaje;
 
-  const claseTipo = tipo === 'exito' ? 'bg-green-600 text-white' : 'bg-red-600 text-white';
+  const claseTipo =
+    tipo === 'exito' ? 'bg-green-600 text-white' : 'bg-red-600 text-white';
   notificacion.className = `${CLASES_BASE_NOTIFICACION} ${claseTipo} opacity-100 translate-x-0 pointer-events-auto`;
 
   notificacion.setAttribute('role', tipo === 'error' ? 'alert' : 'status');
@@ -43,19 +44,23 @@ const mostrarNotificacion = (
  * una notificación toast con el resultado durante 4 segundos.
  */
 export const inicializarFormulario = (): void => {
-  const formulario = document.querySelector<HTMLFormElement>('#formulario-contacto');
+  const formulario = document.querySelector<HTMLFormElement>(
+    '#formulario-contacto',
+  );
   if (!formulario) return;
   if (formulario.dataset.inicializado === 'true') return;
   formulario.dataset.inicializado = 'true';
 
   const notificacion = document.querySelector<HTMLDivElement>('#notificacion');
-  const iconoNotificacion = document.querySelector<SVGSVGElement>('#icono-notificacion');
+  const iconoNotificacion = document.querySelector<SVGSVGElement>(
+    '#icono-notificacion',
+  );
   const mensajeNotificacion = document.querySelector<HTMLParagraphElement>(
     '#mensaje-notificacion',
   );
   if (!notificacion || !iconoNotificacion || !mensajeNotificacion) return;
 
-  formulario.addEventListener('submit', async (evento) => {
+  formulario.addEventListener('submit', async evento => {
     evento.preventDefault();
 
     const datosFormulario = new FormData(formulario);

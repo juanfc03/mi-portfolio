@@ -64,7 +64,10 @@ const datosEstructurados = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={urlCanonica} />
-    <meta property="og:image" content={`${SITIO.url}/open-graph/og-image.png`} />
+    <meta
+      property="og:image"
+      content={`${SITIO.url}/open-graph/og-image.png`}
+    />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
     <meta property="og:locale" content="es_ES" />
@@ -74,7 +77,10 @@ const datosEstructurados = {
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={`${SITIO.url}/open-graph/og-image.png`} />
+    <meta
+      name="twitter:image"
+      content={`${SITIO.url}/open-graph/og-image.png`}
+    />
 
     <Font
       cssVariable="--font-jetbrains-mono"
@@ -99,12 +105,35 @@ const datosEstructurados = {
     >
       Saltar al contenido principal
     </a>
+    <div
+      id="notificacion"
+      class="fixed top-4 right-4 z-100 flex items-center gap-3 px-6 py-4 opacity-0 pointer-events-none transition-all duration-300 ease-in-out translate-x-4"
+      role="status"
+      aria-live="polite"
+      aria-atomic="true"
+    >
+      <svg
+        id="icono-notificacion"
+        class="size-5"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="2"
+        stroke-linecap="round"
+        stroke-linejoin="round"></svg>
+      <p
+        id="mensaje-notificacion"
+        class="font-body-base text-body-base-xs md:text-body-base-md lg:text-body-base-lg"
+      >
+      </p>
+    </div>
     <Cabecera transition:persist="cabecera" />
     <main id="contenido-principal" class="pt-20">
       <slot />
     </main>
     <PiePagina transition:persist="pie-pagina" />
-
   </body>
 </html>
 
