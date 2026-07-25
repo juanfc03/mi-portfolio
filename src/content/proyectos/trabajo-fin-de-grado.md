@@ -1,6 +1,6 @@
 ---
 titulo: 'Trabajo de fin de grado'
-descripcion: 'Plataforma de venta de coches de segunda mano con asistente de IA basado en arquitectura RAG. Análisis del estado del arte, feedbak en tiempo real, diseño reactivo con Livewire, idempotencia en pagos con Stripe, notificaciones y tests de integración.'
+descripcion: 'Plataforma de venta de coches con un asistente de IA basado en arquitectura RAG. Análisis del estado del arte, feedback en tiempo real, diseño reactivo con Livewire, idempotencia en pagos con Stripe, notificaciones y tests de integración.'
 herramientas:
   [
     'Laravel 13',
@@ -30,8 +30,8 @@ codigo:
 
 ## Origen
 
-Este proyecto nació como Trabajo de Fin de Grado en Ingeniería Informática tras
-un análisis del estado del arte del sector de venta de coches de segunda mano en
+Este proyecto nació como el trabajo de fin de grado en Ingeniería Informática tras
+un análisis del estado del arte del sector de venta de coches en
 España. La investigación reveló que la mayoría de plataformas nacionales siguen
 usando filtros clásicos que delegan toda la carga de búsqueda al usuario.
 Plataformas como Coches.net que han intentado integrar IA lo hacen de forma

@@ -26,7 +26,7 @@ export interface Sitio {
  */
 export const SITIO = {
   nombre: 'Juan Fernández Ceacero',
-  rol: 'Ingeniero Informático',
+  rol: 'Ingeniero informático',
   url: 'https://juanfc03.netlify.app',
   correo: 'juanf.ceacero@gmail.com',
   telefono: '+34622384951',
@@ -36,9 +36,9 @@ export const SITIO = {
   enlaceGithub: 'https://github.com/juanfc03',
   universidad: 'Universidad de Jaén',
   descripcion:
-    'Ingeniero informático full stack especializado en Laravel, Spring Boot, Astro y Tailwind. Disponible para nuevas oportunidades.',
+    'Ingeniero informático full-stack con experiencia en desarrollo web e integración de IA en el ciclo de desarrollo. Disponible para nuevas oportunidades, incluyendo consultoría tecnológica.',
   descripcionCorta:
-    'Ingeniero informático recién graduado especializado en desarrollo web full stack.',
+    'Ingeniero informático recién graduado especializado en desarrollo web full-stack.',
   knowsAbout: [
     'PHP',
     'Laravel',

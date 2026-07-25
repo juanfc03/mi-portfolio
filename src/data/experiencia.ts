@@ -9,6 +9,6 @@ export const experiencias: readonly Experiencia[] = [
     duracion: '3 meses',
     ubicacion: 'Jaén, Andalucía, España · Híbrido',
     descripcion:
-      'Colaboración en el desarrollo y mantenimiento de páginas web utilizando PHP y Laravel. Participación en el ciclo completo de desarrollo, incluyendo diseño de funcionalidades, implementación y pruebas. Migración de proyectos antiguos a las últimas versiones de Laravel.',
+      'Colaboración en el desarrollo y mantenimiento de aplicaciones web (PHP/Laravel), participando en todo el ciclo de vida del software, desde el diseño hasta las pruebas y subida a producción. Responsable de la migración y actualización de proyectos heredados a las últimas versiones del framework, siendo capaz de actualizar dependencias y adaptar el código para mejorar la mantenibilidad y el rendimiento respecto a versiones anteriores. Implementación de nuevas funcionalidades con flujo de trabajo basado en Git.',
   },
 ] as const satisfies readonly Experiencia[];
