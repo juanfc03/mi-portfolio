@@ -31,20 +31,21 @@ No test framework. No CI. `.prettierrc` exists (`singleQuote`, `arrowParens: "av
 ## Structure
 
 - `src/pages/index.astro` — home, one-page app, smooth-scroll anchors. Reveal-on-scroll logic lives in `src/scripts/revelar-scroll.ts`.
-- `src/pages/proyectos/[slug].astro` — detalle dinámico por proyecto (con `getStaticPaths()`). La URL `/proyectos/` redirige a `/` mediante `Astro.redirect('/')` + `public/_redirects` (301 en Netlify).
-- `src/layouts/Layout.astro` — `<head>`, meta/OG/Twitter/JSON-LD Person schema, `<ClientRouter />` (Astro View Transitions), `<Cabecera transition:persist />`, `<PiePagina transition:persist />`, default `title`/`description` props. Los scripts inline de manifest PWA y rastreo de rutas están extraídos a `src/scripts/manifest-pwa.ts` y `src/scripts/rastreo-rutas.ts`.
+- `src/pages/proyectos/[slug].astro` — dynamic project detail page (with `getStaticPaths()`). The URL `/proyectos/` redirects to `/` via `Astro.redirect('/')` + `public/_redirects` (301 on Netlify).
+- `src/layouts/Layout.astro` — `<head>`, meta/OG/Twitter/JSON-LD Person schema, `<ClientRouter />` (Astro View Transitions), `<Cabecera transition:persist />`, `<PiePagina transition:persist />`, default `title`/`description` props. The inline scripts for the PWA manifest and route tracking are extracted to `src/scripts/manifest-pwa.ts` and `src/scripts/rastreo-rutas.ts`.
 - `src/components/` — Astro components named in **Spanish** (Cabecera, Inicio, SobreMi, Experiencia, Proyectos, TarjetaProyecto, ProyectoDetalle, Tecnologias, Contacto, PiePagina). Keep naming in Spanish to match the rest.
-- `src/scripts/` — **Lógica de cliente 100% TypeScript**, extraída de los bloques `<script>` inline de los `.astro`. Cada fichero exporta una función `inicializar*` que los componentes importan y registran con `astro:page-load` / `astro:after-swap`. Todos usan `querySelector<T>()` con tipos genéricos nativos (nunca `as` assertions con `getElementById`). Los eventos de Astro (`astro:before-swap`, `astro:before-preparation`) están tipados en `src/types/eventos-astro.ts`.
-- `src/types/` — Interfaces y tipos reutilizables. Solo **type exports** (sin lógica, sin valores). Usar `readonly` en propiedades de interfaces de datos.
-- `src/data/` — Arrays y objetos de datos estáticos. Exportan con `as const satisfies` para preservar literales y forzar validación de tipo sin widening. Sin lógica, sin imports de librerías externas.
-- `src/utils/` — Funciones puras compartidas (formateo de fechas, etc.). Tipos de retorno explícitos, JSDoc obligatorio.
-- `src/content.config.ts` — define la **content collection** `proyectos` validada con Zod (`z.object` + `image()` de Astro Schema). Loader `glob` desde `src/content/proyectos/`.
-- `src/content/proyectos/*.md` — entradas markdown de cada proyecto (frontmatter + body con descripción larga).
-- `src/styles/global.css` — `@theme inline` (Mono Archive tokens actually used by the components), `address { font-style: normal }` reset, `section[id], main[id] { scroll-margin-top: 80px }` for fixed-header offset, `.js-reveal`/`.is-visible` reveal classes, `prefers-reduced-motion` reset con override explícito de `::view-transition-*`, `:focus-visible` outline (2px solid `--color-primary`).
-- `src/styles/proyecto-detalle.css` — Estilos específicos de la página de detalle: animación `detalle-reveal`, `@keyframes detalle-reveal`, y estilos de prosa para el markdown renderizado (`.detalle-contenido`). Sin `:global()` ya que es CSS plano importado.
+- `src/scripts/` — **100% TypeScript client-side logic**, extracted from inline `<script>` blocks in `.astro` files. Each file exports an `inicializar*` function that components import and register with `astro:page-load` / `astro:after-swap`. All use `querySelector<T>()` with native generic types (never `as` assertions with `getElementById`). Astro events (`astro:before-swap`, `astro:before-preparation`) are typed in `src/types/eventos-astro.ts`.
+- `src/types/` — Reusable interfaces and types. **Type exports only** (no logic, no values). Use `readonly` on properties of data interfaces.
+- `src/data/` — Static data arrays and objects. Exported with `as const satisfies` to preserve literals and enforce type validation without widening. No logic, no external library imports.
+- `src/utils/` — Shared pure functions (date formatting, etc.). Explicit return types, JSDoc required.
+- `src/content.config.ts` — defines the **content collection** `proyectos` validated with Zod (`z.object` + `image()` from Astro Schema). `glob` loader from `src/content/proyectos/`.
+- `src/content/proyectos/*.md` — markdown entries for each project (frontmatter + body with long description).
+- `src/styles/global.css` — `@theme inline` (Mono Archive tokens actually used by the components), `address { font-style: normal }` reset, `section[id], main[id] { scroll-margin-top: 80px }` for fixed-header offset, `.js-reveal`/`.is-visible` reveal classes, `prefers-reduced-motion` reset with explicit override of `::view-transition-*`, `:focus-visible` outline (2px solid `--color-primary`).
+- `src/styles/proyecto-detalle.css` — Styles specific to the detail page: `detalle-reveal` animation, `@keyframes detalle-reveal`, and prose styles for the rendered markdown (`.detalle-contenido`). No `:global()` since this is plain imported CSS.
 - `src/assets/` — `retrato-mio.png`, `proyecto-tfg.png`, `proyecto-rosa.png`, `proyecto-kardia.png`. Use `<Image>` from `astro:assets`; never reference these from `/public/`.
-- `src/data/sitio.ts` — **fuente única de verdad** con los datos identificativos del sitio (incluye `knowsAbout` para JSON-LD). Tipado estricto con `interface Sitio` (propiedades `readonly`). Exporta con `as const satisfies Sitio`. Se importa en `Layout.astro`, `PiePagina.astro`, `Contacto.astro` y `Proyectos.astro`. No hardcodear estos valores en componentes ni en el JSON-LD.
-- `public/` — `favicon.svg`, `favicon.ico`, `favicon-96x96.png`, `apple-touch-icon.png`, `og-image.png` (1200×630 social card), `site.webmanifest`, `robots.txt`, `CV_Juan_Fernandez_Ceacero.pdf`. Served as-is. (`web-app-manifest-*.png` are auto-generated by Astro for PWA icons.)
+- `src/data/sitio.ts` — **single source of truth** for the site's identifying data (includes `knowsAbout` for JSON-LD). Strictly typed with `interface Sitio` (properties `readonly`). Exported with `as const satisfies Sitio`. Imported in `Layout.astro`, `PiePagina.astro`, `Contacto.astro` and `Proyectos.astro`. Do not hardcode these values in components or in the JSON-LD.
+- `public/` — `favicon.svg`, `favicon.ico`, `favicon-96x96.png`, `apple-touch-icon.png`, `web-app-manifest-192x192.png`, `web-app-manifest-512x512.png`, `site.webmanifest`, `robots.txt`, `CV_Juan_Fernandez_Ceacero.pdf`. Served as-is. (Astro does NOT autogenerate the `web-app-manifest-*.png` files: they are committed assets for the PWA icons.)
+- `src/pages/open-graph/og-image.png.ts` — **OG image endpoint** generated with `astro-og-canvas`. Because the file ends in `.png.ts`, Astro does NOT add a trailing slash even though `trailingSlash: 'always'` is configured. Serves `/open-graph/og-image.png` (1200×630) at build time. Fonts are pulled directly from the `api.fontsource.org` URLs (matching the weights in the Astro Fonts API config) — no local TTF files needed. Mono Archive design: 24px black top bar, name in JetBrains Mono Bold 100px, role + university + URL in mono. Add to `<meta property="og:image">` and JSON-LD with the full URL (no trailing slash).
 - `.astro/`, `dist/` — generated, gitignored.
 
 ## Design system (Mono Archive)
@@ -55,7 +56,7 @@ Typography is **JetBrains Mono only** — all `--font-*` tokens map to `--font-j
 
 ## Component conventions
 
-- Data arrays in frontmatter typed with `interface` (e.g. `Proyecto` en `Proyectos.astro:7`), iterated with `.map()`. Los proyectos vienen de la **content collection** (`await getCollection('proyectos')` ordenado por `data.orden`). Datos reutilizables se extraen a `src/data/` con `as const satisfies`.
+- Data arrays in frontmatter typed with `interface` (e.g. `Proyecto` in `Proyectos.astro:7`), iterated with `.map()`. Projects come from the **content collection** (`await getCollection('proyectos')` ordered by `data.orden`). Reusable data is extracted to `src/data/` with `as const satisfies`.
 - Images: `<Image>` with `format="webp"` + `quality={75}`. Hero portrait uses `fetchpriority="high"`, `decoding="async"`, `widths={[320, 448, 640, 832, retrato.width]}`, `sizes="(max-width: 480px) 320px, (max-width: 768px) 448px, (max-width: 1024px) 640px, (max-width: 1280px) 832px, 1024px"`. Project images use `loading="lazy"`, `decoding="async"`, `widths={[400, 640, 832, 1088, imagen.width]}`, `sizes="(max-width: 480px) 400px, (max-width: 768px) 640px, (max-width: 1024px) 832px, (max-width: 1280px) 1088px, 1088px"`. **No LCP `<link rel="preload">`** — the `fetchpriority="high"` on the tag itself is enough for this site.
 - Icons are **inline SVGs** (menu/close/toast/download arrow/arrow-left). No icon font, no icon library — Material Symbols was removed (saved 3.8 MB). Decorative SVGs must have `aria-hidden="true"`.
 - **Scripts are in `src/scripts/*.ts`** — no complex logic inside `<script>` blocks in `.astro` files. Each component imports a `<script>` block of 2-4 lines that imports and calls `inicializar*()`. Listeners use `astro:page-load` + `astro:after-swap` so they bind to the new DOM after each `<ClientRouter />` swap. Uses `data-inicializado` guard to avoid duplicates.
@@ -74,12 +75,12 @@ Typography is **JetBrains Mono only** — all `--font-*` tokens map to `--font-j
 
 ## View Transitions (Astro 7 `<ClientRouter />`)
 
-- Activado en `Layout.astro` con `<ClientRouter />` dentro de `<head>` (después de `<Font>`).
-- `Cabecera` y `PiePagina` tienen `transition:persist` para que no se re-rendericen al navegar (mantiene estado del menú móvil y de los hovers de redes sociales).
-- Cada imagen de proyecto lleva `transition:name={`proyecto-${id}`}` para animar como shared element entre el listado (`TarjetaProyecto`) y el detalle (`ProyectoDetalle`).
-- `<a data-astro-history="auto">` es el default → click en "Volver" crea nueva entrada y la posición de scroll se restaura automáticamente con el botón back del navegador.
-- Scripts con listeners usan `astro:page-load` + `astro:after-swap` para re-bindear al nuevo DOM.
-- `prefers-reduced-motion: reduce` desactiva `::view-transition-old/new/group(*)` con override explícito.
+- Enabled in `Layout.astro` with `<ClientRouter />` inside `<head>` (after `<Font>`).
+- `Cabecera` and `PiePagina` have `transition:persist` so they don't re-render on navigation (preserves the mobile menu state and social link hovers).
+- Each project image carries `transition:name={`proyecto-${id}`}` to animate as a shared element between the listing (`TarjetaProyecto`) and the detail (`ProyectoDetalle`).
+- `<a data-astro-history="auto">` is the default → click on "Volver" creates a new entry and the scroll position is automatically restored with the browser's back button.
+- Scripts with listeners use `astro:page-load` + `astro:after-swap` to re-bind to the new DOM.
+- `prefers-reduced-motion: reduce` disables `::view-transition-old/new/group(*)` with an explicit override.
 
 ## Contact form (`Contacto.astro`)
 
