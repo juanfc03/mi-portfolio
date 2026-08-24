@@ -100,15 +100,19 @@ const nombreTransicion = `proyecto-${id}`;
           class="detalle-reveal flex flex-wrap gap-x-6 gap-y-3"
           style="--detalle-reveal-delay: 360ms"
         >
-          <a
-            class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase text-primary border-b border-primary pb-1 hover:opacity-70 transition-opacity"
-            href={data.demoUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Ver demo de ${data.titulo} (se abre en nueva pestaña)`}
-          >
-            Ver demo
-          </a>
+          {
+            data.demoUrl && (
+              <a
+                class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase text-primary border-b border-primary pb-1 hover:opacity-70 transition-opacity"
+                href={data.demoUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Ver demo de ${data.titulo} (se abre en nueva pestaña)`}
+              >
+                Ver demo
+              </a>
+            )
+          }
           <a
             class="font-label-base text-label-base-xs md:text-label-base-md lg:text-label-base-lg uppercase text-on-surface-variant border-b border-on-surface-variant pb-1 hover:text-primary hover:border-primary transition-colors"
             href={data.repositorioUrl}

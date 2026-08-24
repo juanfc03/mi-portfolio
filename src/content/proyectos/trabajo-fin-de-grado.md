@@ -10,7 +10,6 @@ herramientas:
     'Stripe API',
     'Brevo API',
   ]
-demoUrl: 'https://trabajo-fin-de-grado-jfc00031.free.laravel.cloud/'
 repositorioUrl: 'https://github.com/juanfc03/trabajo-fin-de-grado-carai'
 imagen: '../../assets/proyecto-tfg.png'
 imagenAlt: 'Plataforma de venta de coches con asistente IA'
