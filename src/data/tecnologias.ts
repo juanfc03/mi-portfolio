@@ -3,7 +3,7 @@ import type { CategoriaTecnologia } from '@/types/tecnologia';
 export const categorias: readonly CategoriaTecnologia[] = [
   {
     nombre: 'Lenguajes',
-    tecnologias: ['PHP', 'Java', 'Python', 'JavaScript / TypeScript'],
+    tecnologias: ['PHP', 'Java', 'Python', 'JavaScript / TypeScript', 'C++'],
   },
   {
     nombre: 'Backend',
@@ -19,6 +19,16 @@ export const categorias: readonly CategoriaTecnologia[] = [
   },
   {
     nombre: 'Herramientas',
-    tecnologias: ['Git', 'Postman'],
+    tecnologias: [
+      'Git',
+      'Docker',
+      'Postman',
+      'AWS (en aprendizaje)',
+      'Azure (en aprendizaje)',
+    ],
+  },
+  {
+    nombre: 'Metodología',
+    tecnologias: ['Scrum', 'Kanban'],
   },
 ] as const satisfies readonly CategoriaTecnologia[];
