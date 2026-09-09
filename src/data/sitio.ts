@@ -36,9 +36,9 @@ export const SITIO = {
   enlaceGithub: 'https://github.com/juanfc03',
   universidad: 'Universidad de Jaén',
   descripcion:
-    'Ingeniero informático full-stack con experiencia en desarrollo web e integración de IA en el ciclo de desarrollo. Disponible para nuevas oportunidades, incluyendo consultoría tecnológica.',
+    'Ingeniero informático especializado en la ingeniería del software con experiencia en desarrollo web e integración de IA en el ciclo de desarrollo. Disponible para nuevas oportunidades, incluyendo consultoría tecnológica.',
   descripcionCorta:
-    'Ingeniero informático recién graduado especializado en desarrollo web full-stack.',
+    'Ingeniero informático recién graduado especializado en la ingeniería del software.',
   knowsAbout: [
     'PHP',
     'Laravel',
