@@ -1,12 +1,12 @@
 ---
-titulo: 'Landing page para una psicóloga general sanitaria'
+titulo: 'Sitio web para una psicóloga general sanitaria'
 descripcion:
   'Página web profesional para una psicóloga general sanitaria, con diseño responsive, secciones de servicios, testimonios y contacto. Cumplimiento estricto de RGPD y normativa de cookies.'
 herramientas: ['Astro', 'Tailwind CSS', 'Netlify Forms', 'RGPD']
 demoUrl: 'https://rosamruizpsicologa.es/'
 repositorioUrl: 'https://github.com/juanfc03/rosamr-web-psicologia'
 imagen: '../../assets/proyecto-rosa.png'
-imagenAlt: 'Página web de psicóloga profesional'
+imagenAlt: 'Sitio web de psicóloga profesional'
 imagenIzquierda: false
 orden: 2
 codigo:

@@ -1,12 +1,12 @@
 ---
-titulo: 'Landing page para un centro de formación'
+titulo: 'Sitio web para un centro de formación'
 descripcion:
   'Página web estática y de alto rendimiento para un centro de formación profesional. Alcanza 100 en Lighthouse en todas las categorías.'
 herramientas: ['Astro', 'Tailwind CSS', 'Netlify Forms']
 demoUrl: 'https://kardiaformacion.es/'
-repositorioUrl: 'https://github.com/juanfc03/maysu-web-formacion'
+repositorioUrl: 'https://github.com/juanfc03/kardia-formacion'
 imagen: '../../assets/proyecto-kardia.png'
-imagenAlt: 'Landing page de centro de formación profesional'
+imagenAlt: 'Sitio web de centro de formación profesional'
 imagenIzquierda: true
 orden: 3
 codigo:
@@ -33,12 +33,6 @@ estático en el momento del despliegue. Esto se traduce en tiempos de carga
 mínimos, costes de infraestructura casi nulos y una superficie de ataque muy
 reducida. Alcanza una puntuación de **100 en Lighthouse** en todas las
 categorías.
-
-## Accesibilidad
-
-Se siguieron las pautas **WCAG 2.2** desde el inicio: contraste suficiente y
-navegación por teclado. La web se validó con lectores de pantalla y
-herramientas automáticas antes de cada despliegue.
 
 ## Formularios sin servidor
 
