@@ -5,19 +5,22 @@
 - Astro 7 + Tailwind CSS 4 (via `@tailwindcss/vite` plugin)
 - TypeScript strict (`astro/tsconfigs/strict`)
 - Node >= 22.12.0 (`engines` enforced)
+- **pnpm 12** as package manager (version pinned via `packageManager` in `package.json`; lockfile is `pnpm-lock.yaml` — never reintroduce `package-lock.json`)
 
-Note: `package.json` pins `astro: ^7.0.4` and `typescript: ^6.0.3`.
+Note: `package.json` pins `astro: ^7.0.4` and `typescript: ^6.0.3`. All build-time packages live in `devDependencies` (the site is fully static — nothing runs at runtime).
 
 ## Commands
 
 | Command | Purpose |
 | --- | --- |
-| `npm run dev` | Dev server at `localhost:4321` |
-| `npm run build` | Production build to `dist/` |
-| `npm run preview` | Preview production build |
-| `npm run check` | Astro type checking (`astro check`) |
+| `pnpm dev` | Dev server at `localhost:4321` |
+| `pnpm build` | Production build to `dist/` |
+| `pnpm preview` | Preview production build |
+| `pnpm check` | Astro type checking (`astro check`) |
 
-No test framework. No CI. `.prettierrc` exists (`singleQuote`, `arrowParens: "avoid"`) but no `format`/`lint` script — run Prettier via editor or CLI manually. `super-commit` is an OpenCode command (see below), not a npm script.
+No test framework. No CI. `.prettierrc` exists (`singleQuote`, `arrowParens: "avoid"`) but no `format`/`lint` script — run Prettier via editor or CLI manually. `super-commit` is an OpenCode command (see below), not a pnpm script.
+
+**pnpm build scripts:** pnpm 11+ refuses to run dependency install scripts unless approved. Approvals live in `pnpm-workspace.yaml` (`allowBuilds`), NOT in `package.json`. Currently approved: `esbuild: true` (required by Vite). If `pnpm install` reports `ERR_PNPM_IGNORED_BUILDS`, review the new entry and set it to `true`/`false` in `pnpm-workspace.yaml`, then `pnpm rebuild <pkg>`.
 
 ## Config quirks (`astro.config.mjs`)
 
@@ -97,7 +100,7 @@ Typography is **JetBrains Mono only** — all `--font-*` tokens map to `--font-j
 ## Known gaps
 
 - `_headers` / `security.txt` not configured (project is deployed on Netlify with default headers; tighten if you need CSP/HSTS).
-- No automated test suite, no CI, no `format`/`lint` npm script (Prettier is editor-only).
+- No automated test suite, no CI, no `format`/`lint` pnpm script (Prettier is editor-only).
 
 ## Repo-local OpenCode
 

@@ -13,10 +13,10 @@ Portfolio personal de Ingeniería Informática con diseño editorial minimalista
 
 | Comando           | Acción                                          |
 | ----------------- | ----------------------------------------------- |
-| `npm run dev`     | Servidor de desarrollo en `localhost:4321`      |
-| `npm run build`   | Build de producción en `./dist/`                |
-| `npm run preview` | Previsualizar build local                       |
-| `npm run check`   | Verificación de tipos con Astro (`astro check`) |
+| `pnpm dev`     | Servidor de desarrollo en `localhost:4321`      |
+| `pnpm build`   | Build de producción en `./dist/`                |
+| `pnpm preview` | Previsualizar build local                       |
+| `pnpm check`   | Verificación de tipos con Astro (`astro check`) |
 
 ## Estructura
 
