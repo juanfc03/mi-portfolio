@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import TarjetaProyecto from './TarjetaProyecto.astro';
+import TarjetaProyecto from '@/components/TarjetaProyecto.astro';
 
 const proyectos = (await getCollection('proyectos')).sort(
   (a, b) => a.data.orden - b.data.orden,
